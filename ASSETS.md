@@ -31,6 +31,7 @@ quoi que ce soit.
 | `galerie-suite-metal.jpg` | Galerie | Carré 1:1 | **1400 × 1400** |
 | `galerie-suite-terre.jpg` | Galerie | Carré 1:1 | **1400 × 1400** |
 | `galerie-facade.jpg` | Galerie | Carré 1:1 | **1400 × 1400** |
+| `seminaire-salle-alienor.jpg` | Section Séminaires | Paysage 4:3 | **1600 × 1200** |
 
 Les photos de galerie sont aussi affichées en grand dans la visionneuse : plus
 la source est définie, mieux c'est. Une image plus grande que la valeur
@@ -47,6 +48,8 @@ indiquée ne pose aucun problème — le site génère lui-même toutes les tail
 - **Les cartes de suites sont verticales.** Une photo horizontale y perdrait
   ses bords gauche et droit.
 - **La galerie recadre en carré.** Le sujet doit tenir au centre.
+- **La photo séminaire doit montrer la salle Aliénor d'Aquitaine dressée** —
+  tables installées, salle prête. Une salle vide se vend mal.
 
 ## Format
 

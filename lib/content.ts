@@ -184,6 +184,52 @@ export const gallery = {
   ] satisfies MediaAsset[],
 };
 
+export const business = {
+  eyebrow: "Séminaires & entreprises",
+  title: "Réunir vos équipes au cœur du vignoble",
+  paragraphs: [
+    "À quelques kilomètres de Saint-Émilion et à courte distance de Bordeaux, le domaine accueille séminaires, journées d'étude, réunions de direction et réceptions clients dans un cadre qui change de la salle de réunion.",
+    "Le parc, les étangs et le spa font le reste : on travaille le matin, on se retrouve l'après-midi, et personne n'a besoin de reprendre la route le soir.",
+  ],
+  // Chiffres tirés de l'offre événementielle du domaine — à revalider avec
+  // Corinne avant toute mise en ligne commerciale.
+  figures: [
+    {
+      value: "60",
+      unit: "personnes assises",
+      detail: "Salle Aliénor d'Aquitaine, jusqu'à 140 en format cocktail.",
+    },
+    {
+      value: "5",
+      unit: "suites sur place",
+      detail: "Vos participants dorment sur le domaine, avec accès à la piscine.",
+    },
+    {
+      value: "1",
+      unit: "parc privatisable",
+      detail: "Étangs, espaces extérieurs et spa TerreHappy en exclusivité.",
+    },
+  ],
+  formats: [
+    "Séminaire résidentiel",
+    "Journée d'étude",
+    "Réunion de direction",
+    "Team building",
+    "Réception client",
+    "Soirée d'entreprise",
+  ],
+  services:
+    "Restauration, transport avec chauffeur, soins au spa et prestations sur mesure sont organisés avec vous.",
+  ctas: {
+    primary: { label: "Demander un devis", href: "/contact" },
+    secondary: { label: "Voir les espaces", href: "/evenements" },
+  },
+  media: {
+    src: "/images/seminaire-salle-alienor.jpg",
+    alt: "La salle Aliénor d'Aquitaine dressée pour un séminaire",
+  } satisfies MediaAsset,
+};
+
 export const seoBlock = {
   title:
     "Réservation de chambres d'hôtes de luxe à Saint-Émilion — Vivez une expérience inoubliable",

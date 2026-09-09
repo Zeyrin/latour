@@ -1,3 +1,4 @@
+import Business from "@/components/Business";
 import Gallery from "@/components/Gallery";
 import Hero from "@/components/Hero";
 import SeoBlock from "@/components/SeoBlock";
@@ -42,6 +43,7 @@ export default function Home() {
       <Gallery />
       <Testimonials />
       <Spa />
+      <Business />
       <SeoBlock />
     </>
   );
