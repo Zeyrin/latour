@@ -56,6 +56,10 @@ const nextConfig = {
 
   images: {
     formats: ["image/avif", "image/webp"],
+    // Next 16 n'accepte que les qualités déclarées ici ; toute autre valeur
+    // retombe silencieusement sur 75. 72 sert au bandeau d'accueil, la plus
+    // lourde des images et celle qui porte le LCP.
+    qualities: [72, 75],
     // Le site n'affiche que des images locales : aucun domaine distant autorisé
     remotePatterns: [],
   },
