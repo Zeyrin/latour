@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="container-latour grid gap-12 border-t border-line py-16 sm:grid-cols-2 lg:grid-cols-3">
         <div>
           <Image
-            src="/images/LOGO_LATOUR.svg"
+            src="/images/logo-latour.svg"
             alt={site.name}
             width={140}
             height={68}
@@ -63,11 +63,11 @@ export default function Footer() {
 
         <div className="flex flex-col items-start gap-6 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between lg:col-span-1 lg:flex-col lg:items-end lg:justify-start">
           <Image
-            src="/images/footer_monumentdefrance.png"
+            src="/images/logo-monument-historique.webp"
             alt="Monument historique de France"
-            width={110}
-            height={110}
-            className="h-24 w-auto"
+            width={512}
+            height={512}
+            className="h-40 w-auto"
           />
           <p className="max-w-56 text-sm text-stone lg:text-right">{site.heritage}</p>
           <div className="flex gap-4">
@@ -98,7 +98,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-line">
-        <p className="container-latour py-6 text-center text-sm text-mist">
+        <p className="container-latour py-6 pb-24 text-center text-sm text-mist sm:pb-6">
           © {new Date().getFullYear()} {site.name} – Suites &amp; Spa
         </p>
       </div>

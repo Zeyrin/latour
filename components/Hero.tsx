@@ -1,23 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
-import { blurFor } from "@/lib/blur";
+import Media from "@/components/Media";
 import { hero } from "@/lib/content";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[62svh] items-center justify-center overflow-hidden sm:min-h-[75svh] md:min-h-[92svh]">
-      <Image
-        src={hero.image}
-        alt={hero.alt}
-        fill
-        priority
-        fetchPriority="high"
-        sizes="100vw"
-        quality={70}
-        placeholder="blur"
-        blurDataURL={blurFor(hero.image)}
-        className="object-cover"
-      />
+    <section className="relative flex min-h-[88svh] items-center justify-center overflow-hidden md:min-h-svh">
+      <Media asset={hero.media} sizes="100vw" priority quality={72} />
 
       {/* Dégradé plutôt qu'un voile uniforme : la photo reste lisible en bas */}
       <div className="absolute inset-0 bg-linear-to-b from-black/55 via-black/25 to-black/50" />

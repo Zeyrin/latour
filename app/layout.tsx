@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Newsreader, Roboto } from "next/font/google";
+import BookingBar from "@/components/BookingBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { site } from "@/lib/content";
@@ -57,6 +58,7 @@ export default function RootLayout({
         <Header />
         <main id="contenu">{children}</main>
         <Footer />
+        <BookingBar />
       </body>
     </html>
   );

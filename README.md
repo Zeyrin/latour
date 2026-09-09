@@ -32,6 +32,10 @@ navigation — en capitales espacées). Conteneur : 1140 px.
 - Cibles tactiles de 44 px minimum (`tap`).
 - Apparition en fondu des sections à l'entrée dans le viewport, avec repli
   `noscript` pour rester visible sans JavaScript.
+- Galerie avec visionneuse : ouverture au clic, navigation clavier et au
+  swipe, défilement de fond bloqué, focus rendu à la vignette d'origine.
+- Barre d'action mobile (appeler / réserver) qui apparaît une fois le bandeau
+  d'accueil dépassé.
 - Carrousel de témoignages : slides superposés dans une même cellule de grille,
   donc pas de saut de hauteur ; navigation au clavier, au swipe, défilement
   automatique suspendu au survol et au focus.
@@ -41,7 +45,7 @@ navigation — en capitales espacées). Conteneur : 1140 px.
 ## Performance
 
 - Images servies en AVIF/WebP par `next/image`, avec miniature floutée
-  générée à la compilation (`scripts/blur.mjs` → `lib/blur.ts`).
+  générée à la compilation (`scripts/media.mjs` → `lib/media-manifest.ts`).
 - Hero en `priority` + `fetchPriority="high"` ; le reste en chargement paresseux.
 - Hauteurs en `svh` plutôt que `vh` : pas de saut quand la barre d'adresse
   mobile se rétracte.
@@ -63,11 +67,32 @@ npm run build   # build de production
 npm start       # serveur de production
 ```
 
+## Photos
+
+La mise en page ne dépend pas des fichiers présents : chaque emplacement a son
+cadre et son ratio, et une photo non livrée s'affiche en cadre neutre « Photo à
+venir » qui occupe exactement la même place. **[ASSETS.md](ASSETS.md) liste les
+noms de fichiers et les définitions attendues** — c'est le document à
+transmettre au photographe.
+
+Après chaque livraison :
+
+```bash
+npm run media   # réindexe dimensions et miniatures floutées
+```
+
+Ce script tourne aussi automatiquement avant `npm run build`.
+
 ## Structure
 
 - `lib/content.ts` — tout le contenu éditorial de la homepage, centralisé
+- `lib/media.ts` + `lib/media-manifest.ts` — index des photos (dimensions,
+  miniatures floutées, photos manquantes)
+- `components/Media.tsx` — primitive image : chargement progressif, cadre de
+  remplacement, zoom au survol
 - `components/` — sections de la homepage + header/footer
-- `public/images/` — visuels récupérés du site d'origine
+- `public/images/` — photos du site
+- `scripts/media.mjs` — réindexation des photos
 
 ## État
 
@@ -82,10 +107,7 @@ navigation mais restent à créer.
 - La réservation passe par un prestataire externe (secretbox.fr) : l'URL est
   centralisée dans `lib/content.ts` (`site.bookingUrl`) et reste à confirmer.
 - Le formulaire newsletter n'est pas encore branché sur un prestataire d'emailing.
-- **Photo du hero à remplacer** : la source est un bandeau 2500×884. En plein
-  écran vertical sur mobile, le recadrage n'en laisse qu'une bande étroite. La
-  hauteur du hero a été réduite sur petit écran pour limiter la perte, mais une
-  photo en cadrage portrait permettrait un vrai rendu plein écran.
-- **Visuels des suites en basse définition** : 408×276 seulement. Leur ratio
-  d'origine (3:2) est respecté pour éviter tout étirement, mais des photos plus
-  grandes amélioreraient nettement le rendu sur grand écran.
+- **Photos en attente de livraison.** Les visuels actuellement en place
+  proviennent de l'ancien site et sont de faible définition (suites en 408×276,
+  bandeau d'accueil en 2500×884). La mise en page vise les définitions listées
+  dans [ASSETS.md](ASSETS.md) : les remplacer suffit, sans toucher au code.

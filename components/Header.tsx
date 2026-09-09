@@ -55,7 +55,7 @@ export default function Header() {
           aria-label={`${site.name}, retour à l'accueil`}
         >
           <Image
-            src="/images/LOGO_LATOUR.svg"
+            src="/images/logo-latour.svg"
             alt={`${site.name} — ${site.tagline}`}
             width={132}
             height={64}

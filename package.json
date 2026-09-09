@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "media": "node scripts/media.mjs",
+    "prebuild": "node scripts/media.mjs"
   },
   "dependencies": {
     "next": "15.1.6",
