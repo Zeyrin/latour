@@ -41,6 +41,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr" className={`${newsreader.variable} ${roboto.variable}`}>
+      <head>
+        {/* Sans JavaScript, les sections animées au défilement restent visibles */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important}`}</style>
+        </noscript>
+      </head>
       <body>
         <a
           href="#contenu"
