@@ -3,7 +3,7 @@ import { seoBlock } from "@/lib/content";
 
 export default function SeoBlock() {
   return (
-    <section className="container-latour py-16 sm:py-20 md:py-24">
+    <section className="container-latour section-y">
       <Reveal>
         <h2 className="mx-auto max-w-4xl text-center text-2xl md:text-3xl">
           {seoBlock.title}

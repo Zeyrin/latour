@@ -52,21 +52,20 @@ export const hero = {
   } satisfies MediaAsset,
 };
 
-export const welcome = {
-  title: "Bienvenue au Château Latour Ségur Suites & Spa TerreHappy®",
-  hosts: "Corinne Dray",
-  paragraphs: [
-    "Amoureuse des belles bâtisses et soucieuse du bien-être de ses invités, Corinne vous accueille au Château Latour Ségur Suites & Spa TerreHappy® pour un séjour reposant et bucolique proche du vignoble Saint-Émilionnais.",
-    "En séjournant au Château Latour Ségur Suites & Spa TerreHappy®, Corinne partagera avec vous sa passion pour cette région pleine de richesses culturelles.",
-  ],
-};
-
-export const traditions = {
+/**
+ * Accueil et présentation du domaine, réunis en une seule section.
+ * Les blocs « Bienvenue » et « Au cœur des traditions » du site d'origine
+ * répétaient les mêmes informations : deux phrases redondantes ont été
+ * écartées, aucune information distinctive n'a été perdue.
+ */
+export const domaine = {
   eyebrow: "Au cœur des traditions",
-  title: "Lussac Saint-Émilion",
+  title: "Bienvenue au Château Latour Ségur",
+  subtitle: "Suites & Spa TerreHappy® — Lussac Saint-Émilion",
+  hosts: "Corinne Dray",
   icon: "/images/icone-village.png",
   paragraphs: [
-    "Situé au cœur du vignoble bordelais, proche du village de Saint-Émilion, le Château Latour Ségur Suites & Spa TerreHappy® vous ouvre ses portes le temps d'un séjour de détente et de bien-être.",
+    "Amoureuse des belles bâtisses et soucieuse du bien-être de ses invités, Corinne vous accueille pour un séjour reposant et bucolique proche du vignoble Saint-Émilionnais.",
     "Au cœur d'un parc ombragé avec étangs, ce lieu sera idéal pour vous ressourcer.",
     "Aménagées dans les dépendances du château, les chambres d'hôtes de charme et les vastes suites vous séduiront grâce à leur atmosphère agréable et paisible.",
     "Des chambres en suite de 28 à 60 m² avec cheminée et bain à remous sur le thème des 5 éléments.",

@@ -10,7 +10,7 @@ import { business } from "@/lib/content";
  */
 export default function Business() {
   return (
-    <section className="bg-sand py-16 sm:py-20 md:py-28">
+    <section className="bg-sand section-y">
       <div className="container-latour">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>

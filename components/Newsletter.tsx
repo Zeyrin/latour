@@ -9,7 +9,7 @@ export default function Newsletter() {
   const [status, setStatus] = useState<Status>("idle");
 
   return (
-    <section className="container-latour py-16 text-center sm:py-20">
+    <section className="container-latour section-y text-center">
       <h2 className="mx-auto max-w-2xl text-2xl md:text-3xl">
         Inscrivez-vous à notre newsletter pour recevoir des offres personnalisées.
       </h2>

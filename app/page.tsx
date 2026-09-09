@@ -1,12 +1,11 @@
 import Business from "@/components/Business";
+import Domaine from "@/components/Domaine";
 import Gallery from "@/components/Gallery";
 import Hero from "@/components/Hero";
 import SeoBlock from "@/components/SeoBlock";
 import Spa from "@/components/Spa";
 import Suites from "@/components/Suites";
 import Testimonials from "@/components/Testimonials";
-import Traditions from "@/components/Traditions";
-import Welcome from "@/components/Welcome";
 import { site } from "@/lib/content";
 
 const jsonLd = {
@@ -37,10 +36,9 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero />
-      <Welcome />
-      <Traditions />
-      <Suites />
       <Gallery />
+      <Suites />
+      <Domaine />
       <Spa />
       <Business />
       <SeoBlock />

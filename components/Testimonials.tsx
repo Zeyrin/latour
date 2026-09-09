@@ -27,7 +27,7 @@ export default function Testimonials() {
 
   return (
     <section
-      className="on-dark bg-brand py-16 text-white sm:py-20 md:py-28"
+      className="on-dark bg-brand section-y text-white"
       aria-roledescription="carrousel"
       aria-label={testimonials.title}
       onMouseEnter={() => setPaused(true)}

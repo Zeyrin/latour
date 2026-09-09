@@ -20,7 +20,7 @@ export default function Gallery() {
   });
 
   return (
-    <section className="bg-sand py-16 sm:py-20 md:py-28">
+    <section className="bg-sand section-y">
       <div className="container-latour">
         <Reveal className="text-center">
           <p className="eyebrow text-stone">{gallery.eyebrow}</p>

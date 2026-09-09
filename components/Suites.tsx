@@ -5,7 +5,7 @@ import { site, suitesSection } from "@/lib/content";
 
 export default function Suites() {
   return (
-    <section className="container-latour py-16 sm:py-20 md:py-28">
+    <section className="container-latour section-y">
       <Reveal className="text-center">
         <p className="eyebrow text-stone">{suitesSection.eyebrow}</p>
         <h2 className="title-section mx-auto mt-3 max-w-3xl uppercase">

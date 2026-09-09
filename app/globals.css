@@ -123,6 +123,19 @@
   font-size: clamp(2.25rem, 1.1rem + 5vw, 4rem);
 }
 
+/* Rythme vertical des sections, resserré sur petit écran */
+@utility section-y {
+  padding-block: 3rem;
+
+  @media (width >= 640px) {
+    padding-block: 5rem;
+  }
+
+  @media (width >= 768px) {
+    padding-block: 7rem;
+  }
+}
+
 /* Cible tactile confortable sur mobile (44px min) */
 @utility tap {
   min-height: 44px;
