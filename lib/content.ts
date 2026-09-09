@@ -48,10 +48,10 @@ export const hero = {
 
 export const welcome = {
   title: "Bienvenue au Château Latour Ségur Suites & Spa TerreHappy®",
-  hosts: "Corinne Dray & André Nizet",
+  hosts: "Corinne Dray",
   paragraphs: [
-    "Amoureux des belles bâtisses et soucieux du bien-être de leurs invités, Corinne et André vous accueillent au Château Latour Ségur Suites & Spa TerreHappy® pour un séjour reposant et bucolique proche du vignoble Saint-Émilionnais.",
-    "En séjournant au Château Latour Ségur Suites & Spa TerreHappy®, Corinne et André partageront avec vous leur passion pour cette région pleine de richesses culturelles.",
+    "Amoureuse des belles bâtisses et soucieuse du bien-être de ses invités, Corinne vous accueille au Château Latour Ségur Suites & Spa TerreHappy® pour un séjour reposant et bucolique proche du vignoble Saint-Émilionnais.",
+    "En séjournant au Château Latour Ségur Suites & Spa TerreHappy®, Corinne partagera avec vous sa passion pour cette région pleine de richesses culturelles.",
   ],
 };
 
@@ -108,7 +108,7 @@ export const testimonials = {
     {
       heading: "Une escapade proche de Bordeaux",
       quote:
-        "Parlons peu, parlons escapade, sans pour autant partir bien loin de Bordeaux ! Rendez-vous à Lussac au Château Latour Ségur tenu par André et Corinne, un adorable couple qui fera tout pour rendre ce moment aussi enrichissant qu'agréable.",
+        "Parlons peu, parlons escapade, sans pour autant partir bien loin de Bordeaux ! Rendez-vous à Lussac au Château Latour Ségur tenu par Corinne, qui fera tout pour rendre ce moment aussi enrichissant qu'agréable.",
       author: "Roxy Nett",
     },
     {
