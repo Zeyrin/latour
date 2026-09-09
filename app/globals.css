@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette reprise de l'identité historique du domaine */
+  --color-brand: #44190e;
+  --color-brand-soft: #7a4230;
+  --color-ink: #000000;
+  --color-sand: #f0eeec;
+  --color-stone: #6c6c6b;
+  --color-mist: #a4a4a4;
+  --color-line: #cccccc;
+
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+
+  --spacing-container: 1140px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    color: var(--color-brand);
+    font-weight: 600;
+    line-height: 1.15;
+  }
+}
+
+@utility container-latour {
+  width: 100%;
+  max-width: 1140px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+/* Libellés en capitales espacées : signature typographique du site */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
