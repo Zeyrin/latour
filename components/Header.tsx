@@ -19,8 +19,13 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Le menu mobile se referme au changement de page
-  useEffect(() => setOpen(false), [pathname]);
+  // Le menu mobile se referme au changement de page. Ajustement pendant le
+  // rendu plutôt que dans un effet : pas de rendu en cascade.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
 
   // Échap pour fermer, et blocage du défilement de fond quand le panneau est ouvert
   useEffect(() => {

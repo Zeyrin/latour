@@ -17,12 +17,8 @@ export default function Reveal({ children, delay = 0, className = "" }: Props) {
     const el = ref.current;
     if (!el) return;
 
-    // Pas d'animation si l'utilisateur a demandé moins de mouvement
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setShown(true);
-      return;
-    }
-
+    // Pas de cas particulier pour prefers-reduced-motion : globals.css ramène
+    // la durée de l'animation à zéro, la section apparaît alors d'un coup.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
