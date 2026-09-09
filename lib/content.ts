@@ -76,6 +76,8 @@ export const traditions = {
 
 export const suitesSection = {
   eyebrow: "Suites & Spa",
+  allLabel: "Voir les cinq suites",
+  allHref: "/les-suites",
   title: "Chambres d'hôtes de prestige Suites & Spa Saint-Émilion",
   items: [
     {

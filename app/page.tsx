@@ -41,10 +41,10 @@ export default function Home() {
       <Traditions />
       <Suites />
       <Gallery />
-      <Testimonials />
       <Spa />
       <Business />
       <SeoBlock />
+      <Testimonials />
     </>
   );
 }
