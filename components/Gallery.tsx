@@ -20,6 +20,7 @@ export default function Gallery() {
   });
 
   return (
+    // Facets, juste au-dessus, est en fond blanc.
     <section className="bg-sand section-y">
       <div className="container-latour">
         <Reveal className="text-center">

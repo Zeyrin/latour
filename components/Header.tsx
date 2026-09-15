@@ -56,7 +56,7 @@ export default function Header() {
       <div className="container-latour flex items-center justify-between gap-4 py-3 xl:gap-8">
         <Link
           href="/"
-          className="flex shrink-0 items-center"
+          className="m3-state m3-corner-medium flex shrink-0 items-center p-1"
           aria-label={`${site.name}, retour à l'accueil`}
         >
           <Image
@@ -86,13 +86,13 @@ export default function Header() {
                 <Link
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`eyebrow relative whitespace-nowrap py-2 transition-colors ${
-                    solid ? "text-ink hover:text-brand" : "text-white hover:text-white/70"
+                  className={`m3-button m3-text-button m3-state relative whitespace-nowrap ${
+                    solid ? "text-ink" : "text-white"
                   }`}
                 >
                   {item.label}
                   <span
-                    className={`absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-current transition-transform duration-300 group-hover:scale-x-100 ${
+                    className={`absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 rounded-full bg-current transition-transform duration-300 group-hover:scale-x-100 ${
                       active ? "scale-x-100" : ""
                     }`}
                   />
@@ -100,12 +100,12 @@ export default function Header() {
 
                 {"children" in item && item.children ? (
                   <div className="invisible absolute left-1/2 top-full z-10 w-64 -translate-x-1/2 translate-y-1 pt-4 opacity-0 transition duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                    <ul className="border border-line bg-white py-2 shadow-lg">
+                    <ul className="m3-menu">
                       {item.children.map((child) => (
                         <li key={child.href}>
                           <Link
                             href={child.href}
-                            className="block px-5 py-2.5 text-[0.95rem] text-stone transition-colors hover:bg-sand hover:text-brand"
+                            className="m3-menu-item m3-state text-stone"
                           >
                             {child.label}
                           </Link>
@@ -122,7 +122,7 @@ export default function Header() {
         <div className="flex items-center gap-2 sm:gap-4">
           <Link
             href="/bon-cadeau"
-            className="eyebrow tap hidden border border-brand bg-brand px-5 text-white transition-colors hover:bg-transparent hover:text-brand sm:inline-flex"
+            className="m3-button m3-filled m3-state hidden sm:inline-flex"
           >
             Bon cadeau
           </Link>
@@ -133,7 +133,7 @@ export default function Header() {
             aria-expanded={open}
             aria-controls="menu-mobile"
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-            className={`-mr-2 flex h-11 w-11 flex-col items-center justify-center gap-[5px] transition-colors xl:hidden ${
+            className={`m3-icon-button m3-state -mr-2 flex-col gap-[5px] xl:hidden ${
               solid ? "text-brand" : "text-white"
             }`}
           >
@@ -166,7 +166,7 @@ export default function Header() {
         <ul className="container-latour flex flex-col py-3">
           {nav.map((item) => (
             <li key={item.href} className="border-b border-line/60 last:border-0">
-              <Link href={item.href} className="eyebrow tap w-full justify-start py-3 text-ink">
+              <Link href={item.href} className="m3-menu-item m3-state text-ink">
                 {item.label}
               </Link>
 
@@ -176,7 +176,7 @@ export default function Header() {
                     <li key={child.href}>
                       <Link
                         href={child.href}
-                        className="tap w-full justify-start text-stone transition-colors hover:text-brand"
+                        className="m3-menu-item m3-state text-stone"
                       >
                         {child.label}
                       </Link>
@@ -190,14 +190,14 @@ export default function Header() {
           <li className="py-4">
             <Link
               href="/bon-cadeau"
-              className="eyebrow tap w-full bg-brand px-5 text-center text-white"
+              className="m3-button m3-filled m3-state w-full"
             >
               Bon cadeau
             </Link>
           </li>
 
           <li className="pb-6 text-center">
-            <a href={site.phoneHref} className="tap text-brand">
+            <a href={site.phoneHref} className="m3-button m3-text-button m3-state">
               {site.phone}
             </a>
           </li>

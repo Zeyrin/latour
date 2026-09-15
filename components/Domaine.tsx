@@ -38,7 +38,7 @@ export default function Domaine() {
 
           <Link
             href={domaine.cta.href}
-            className="eyebrow tap mt-8 border border-brand px-8 text-brand transition-colors duration-300 hover:bg-brand hover:text-white md:py-4"
+            className="m3-button m3-outlined m3-state mt-8"
           >
             {domaine.cta.label}
           </Link>

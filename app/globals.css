@@ -67,10 +67,10 @@
     color: #ffffff;
   }
 
-  /* Un anneau de focus lisible sur fond clair comme sur fond photo */
+  /* Indicateur de focus Material 3 : 3px, décalé de 2px, en couleur secondaire */
   :focus-visible {
-    outline: 2px solid var(--color-brand);
-    outline-offset: 3px;
+    outline: 3px solid var(--md-sys-color-secondary);
+    outline-offset: 2px;
   }
 
   .on-dark :focus-visible,
@@ -136,10 +136,382 @@
   }
 }
 
-/* Cible tactile confortable sur mobile (44px min) */
+/* Cible tactile au minimum Material 3 (48dp) */
 @utility tap {
-  min-height: 44px;
+  min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ============================================================================
+   Material 3
+   Les éléments interactifs du site suivent le système Material 3 : rôles de
+   couleur, couches d'état, formes, élévation et mouvement. Tout part des
+   jetons ci-dessous — aucun bouton ne redéfinit ses couleurs à la main.
+   ========================================================================= */
+
+@layer base {
+  :root {
+    /* --- Rôles de couleur ---------------------------------------------------
+       La couleur source du domaine est #44190e. Material Theme Builder en
+       tirerait une « primary » en tonalité 40, nettement plus claire ; on garde
+       ici la teinte de marque telle quelle, ce que M3 prévoit pour une couleur
+       personnalisée. Le contraste sur blanc reste très au-delà du seuil AAA. */
+    --md-sys-color-primary: #44190e;
+    --md-sys-color-on-primary: #ffffff;
+    --md-sys-color-primary-container: #ffdbd0;
+    --md-sys-color-on-primary-container: #2c0c04;
+
+    --md-sys-color-secondary: #7a4230;
+    --md-sys-color-on-secondary: #ffffff;
+    --md-sys-color-secondary-container: #f6e3dd;
+    --md-sys-color-on-secondary-container: #2c150e;
+
+    --md-sys-color-surface: #ffffff;
+    --md-sys-color-on-surface: #000000;
+    --md-sys-color-surface-variant: #f0eeec;
+    --md-sys-color-on-surface-variant: #6c6c6b;
+    --md-sys-color-surface-container-low: #faf8f7;
+    --md-sys-color-surface-container: #f4f2f0;
+
+    --md-sys-color-outline: #8a7b77;
+    --md-sys-color-outline-variant: #cccccc;
+
+    /* --- Couches d'état : opacités normalisées M3 --- */
+    --md-sys-state-hover-opacity: 0.08;
+    --md-sys-state-focus-opacity: 0.1;
+    --md-sys-state-pressed-opacity: 0.1;
+
+    /* --- Formes --- */
+    --md-sys-shape-corner-extra-small: 4px;
+    --md-sys-shape-corner-small: 8px;
+    --md-sys-shape-corner-medium: 12px;
+    --md-sys-shape-corner-large: 16px;
+    --md-sys-shape-corner-full: 9999px;
+
+    /* --- Élévation --- */
+    --md-sys-elevation-1: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --md-sys-elevation-2: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+    --md-sys-elevation-3: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 4px 8px 3px rgb(0 0 0 / 0.15);
+
+    /* --- Mouvement --- */
+    --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    --md-sys-motion-duration-short4: 200ms;
+    --md-sys-motion-duration-medium2: 300ms;
+  }
+
+  /* Sur photo ou aplat sombre, les rôles basculent : le blanc devient la
+     couleur d'accent, la teinte de marque devient la couleur « on ». Les
+     boutons ne changent pas de classe, seulement de contexte. */
+  .on-dark {
+    --md-sys-color-primary: #ffffff;
+    --md-sys-color-on-primary: #44190e;
+    --md-sys-color-on-surface: #ffffff;
+    --md-sys-color-on-surface-variant: rgb(255 255 255 / 0.8);
+    --md-sys-color-outline: rgb(255 255 255 / 0.7);
+    --md-sys-color-outline-variant: rgb(255 255 255 / 0.35);
+    --md-sys-color-surface-container: #33302f;
+  }
+
+  /* Onde d'appui, injectée par M3Ripple. Règle CSS ordinaire et non `@utility` :
+     la classe n'apparaît que dans du JavaScript, elle doit toujours être émise. */
+  .m3-ripple {
+    position: absolute;
+    border-radius: var(--md-sys-shape-corner-full);
+    background-color: currentColor;
+    opacity: var(--md-sys-state-pressed-opacity);
+    transform: scale(0);
+    pointer-events: none;
+    animation: m3-ripple 450ms var(--md-sys-motion-easing-standard) forwards;
+  }
+
+  @keyframes m3-ripple {
+    to {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .m3-ripple {
+      display: none;
+    }
+  }
+}
+
+/* Couche d'état : le survol, le focus et l'appui se superposent à la couleur du
+   conteneur au lieu de la remplacer. C'est le mécanisme central de M3, et la
+   raison pour laquelle un même bouton fonctionne sur fond clair comme sombre. */
+@utility m3-state {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-color: currentColor;
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-duration-short4)
+      var(--md-sys-motion-easing-standard);
+  }
+
+  &:hover::before {
+    opacity: var(--md-sys-state-hover-opacity);
+  }
+
+  &:focus-visible::before {
+    opacity: var(--md-sys-state-focus-opacity);
+  }
+
+  &:active::before {
+    opacity: var(--md-sys-state-pressed-opacity);
+  }
+
+  &:disabled::before,
+  &[aria-disabled="true"]::before {
+    opacity: 0;
+  }
+}
+
+/* Corps commun des boutons M3 : hauteur 40dp, 24dp de marge interne, forme
+   entièrement arrondie, libellé « label large ». Pas de capitales : M3 est
+   passé à la casse de phrase, contrairement à Material 2. */
+@utility m3-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  padding-inline: 1.5rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  line-height: 1.25rem;
+  text-align: center;
+  white-space: nowrap;
+  transition:
+    background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+    box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+    border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+
+  /* 40dp au pointeur fin, 48dp au doigt : la hauteur visée par M3 et le
+     minimum tactile accessible ne sont pas la même valeur. */
+  @media (pointer: coarse) {
+    min-height: 3rem;
+  }
+}
+
+@utility m3-filled {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+
+  &:hover {
+    box-shadow: var(--md-sys-elevation-1);
+  }
+
+  &:active {
+    box-shadow: none;
+  }
+
+  &:disabled {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+    color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+    box-shadow: none;
+  }
+}
+
+@utility m3-tonal {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+
+  &:hover {
+    box-shadow: var(--md-sys-elevation-1);
+  }
+
+  &:active {
+    box-shadow: none;
+  }
+}
+
+@utility m3-outlined {
+  border: 1px solid var(--md-sys-color-outline);
+  background-color: transparent;
+  color: var(--md-sys-color-primary);
+
+  &:focus-visible {
+    border-color: var(--md-sys-color-primary);
+  }
+
+  &:disabled {
+    border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+    color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  }
+}
+
+/* Bouton texte : 12dp de marge interne, pas de conteneur */
+@utility m3-text-button {
+  background-color: transparent;
+  color: var(--md-sys-color-primary);
+  padding-inline: 0.75rem;
+}
+
+/* Bouton icône : conteneur circulaire de 40dp, icône de 24dp */
+@utility m3-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  color: var(--md-sys-color-on-surface-variant);
+  transition:
+    background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+    border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+
+  @media (pointer: coarse) {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+@utility m3-icon-button-outlined {
+  border: 1px solid var(--md-sys-color-outline);
+  color: var(--md-sys-color-primary);
+}
+
+@utility m3-icon-button-filled {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+/* Puce M3 : 32dp, coin « small », libellé label-large */
+@utility m3-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding-inline: 1rem;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-small);
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface-variant);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  line-height: 1.25rem;
+}
+
+/* Menu M3 : conteneur en élévation 2, coin « extra small » */
+@utility m3-menu {
+  background-color: var(--md-sys-color-surface-container);
+  border-radius: var(--md-sys-shape-corner-extra-small);
+  box-shadow: var(--md-sys-elevation-2);
+  padding-block: 0.5rem;
+}
+
+/* Ligne de menu ou de liste : 48dp, 12dp de marge interne */
+@utility m3-menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 3rem;
+  padding-inline: 0.75rem;
+  border-radius: var(--md-sys-shape-corner-extra-small);
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  line-height: 1.25rem;
+  text-align: start;
+}
+
+@utility m3-corner-medium {
+  border-radius: var(--md-sys-shape-corner-medium);
+}
+
+@utility m3-corner-large {
+  border-radius: var(--md-sys-shape-corner-large);
+}
+
+/* --- Champ de saisie « outlined » ------------------------------------------
+   Combinateurs de frères : règles CSS ordinaires plutôt que `@utility`. */
+@layer components {
+  .m3-field {
+    position: relative;
+  }
+
+  .m3-field-input {
+    width: 100%;
+    min-height: 3.5rem;
+    padding: 1rem;
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    outline: none;
+    transition: border-color var(--md-sys-motion-duration-short4)
+      var(--md-sys-motion-easing-standard);
+  }
+
+  /* Le trait passe à 2px au focus : la marge interne compense pour que le
+     texte ne bouge pas d'un pixel. */
+  .m3-field-input:focus {
+    border-width: 2px;
+    border-color: var(--md-sys-color-primary);
+    padding: calc(1rem - 1px);
+  }
+
+  .m3-field-input:disabled {
+    border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+    color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  }
+
+  /* Étiquette flottante. Elle porte le fond du champ pour interrompre le trait
+     du contour quand elle remonte s'y poser. */
+  .m3-field-label {
+    position: absolute;
+    top: 1rem;
+    left: 0.75rem;
+    padding-inline: 0.25rem;
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface-variant);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    pointer-events: none;
+    transform-origin: left top;
+    transition:
+      transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+      color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+  }
+
+  .m3-field-input:focus ~ .m3-field-label,
+  .m3-field-input:not(:placeholder-shown) ~ .m3-field-label {
+    transform: translateY(-1.5rem) scale(0.75);
+  }
+
+  .m3-field-input:focus ~ .m3-field-label {
+    color: var(--md-sys-color-primary);
+  }
+
+  /* Texte d'aide sous le champ : « body small » */
+  .m3-field-support {
+    padding-inline: 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--md-sys-color-on-surface-variant);
+  }
 }

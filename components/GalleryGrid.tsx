@@ -103,7 +103,7 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
                   setOpenAt(openIndex);
                 }}
                 aria-label={ready ? "Agrandir : " + item.alt : undefined}
-                className="group relative block aspect-square w-full overflow-hidden bg-sand disabled:cursor-default"
+                className="group m3-state m3-corner-medium relative block aspect-square w-full bg-sand text-white disabled:cursor-default"
               >
                 {ready ? (
                   <Image
@@ -152,7 +152,7 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
             type="button"
             onClick={() => setOpenAt(null)}
             aria-label="Fermer"
-            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-white/40 text-xl text-white transition-colors hover:bg-white hover:text-brand"
+            className="m3-icon-button m3-icon-button-outlined m3-state absolute right-4 top-4 text-xl"
           >
             ×
           </button>
@@ -166,7 +166,7 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
                   step(-1);
                 }}
                 aria-label="Photo précédente"
-                className="absolute left-2 flex h-11 w-11 items-center justify-center rounded-full border border-white/40 text-xl text-white transition-colors hover:bg-white hover:text-brand sm:left-6"
+                className="m3-icon-button m3-icon-button-outlined m3-state absolute left-2 text-xl sm:left-6"
               >
                 ‹
               </button>
@@ -177,7 +177,7 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
                   step(1);
                 }}
                 aria-label="Photo suivante"
-                className="absolute right-2 flex h-11 w-11 items-center justify-center rounded-full border border-white/40 text-xl text-white transition-colors hover:bg-white hover:text-brand sm:right-6"
+                className="m3-icon-button m3-icon-button-outlined m3-state absolute right-2 text-xl sm:right-6"
               >
                 ›
               </button>
@@ -193,7 +193,7 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
               sizes="(min-width: 1024px) 1024px, 100vw"
               placeholder={current.blurDataURL ? "blur" : "empty"}
               blurDataURL={current.blurDataURL}
-              className="mx-auto max-h-[78svh] w-auto object-contain"
+              className="m3-corner-medium mx-auto max-h-[78svh] w-auto object-contain"
             />
             <figcaption className="mt-4 text-center text-sm text-white/80">
               {current.alt}

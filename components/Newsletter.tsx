@@ -15,7 +15,7 @@ export default function Newsletter() {
       </h2>
 
       <form
-        className="mx-auto mt-8 flex max-w-xl flex-col gap-3 sm:flex-row"
+        className="mx-auto mt-8 flex max-w-xl flex-col items-stretch gap-4 sm:flex-row sm:items-start"
         onSubmit={(e) => {
           e.preventDefault();
           // TODO: brancher sur le prestataire d'emailing (Brevo / Mailchimp)
@@ -23,26 +23,32 @@ export default function Newsletter() {
           window.setTimeout(() => setStatus("sent"), 400);
         }}
       >
-        <label htmlFor="newsletter-email" className="sr-only">
-          Adresse email
-        </label>
-        <input
-          id="newsletter-email"
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          inputMode="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          disabled={status !== "idle"}
-          className="min-h-11 flex-1 border border-line bg-white px-4 py-3 outline-none transition-colors placeholder:text-mist focus:border-brand disabled:opacity-60"
-        />
+        {/* Champ « outlined » M3 : l'étiquette flotte et vient interrompre le
+            trait du contour. Le placeholder d'un seul espace n'est là que pour
+            que `:placeholder-shown` sache si le champ est vide. */}
+        <div className="m3-field flex-1 text-left">
+          <input
+            id="newsletter-email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            inputMode="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder=" "
+            disabled={status !== "idle"}
+            className="m3-field-input"
+          />
+          <label htmlFor="newsletter-email" className="m3-field-label">
+            Adresse email
+          </label>
+        </div>
+
         <button
           type="submit"
           disabled={status !== "idle"}
-          className="eyebrow tap border border-brand bg-brand px-8 text-white transition-colors duration-300 hover:bg-transparent hover:text-brand disabled:opacity-60 disabled:hover:bg-brand disabled:hover:text-white"
+          className="m3-button m3-filled m3-state sm:mt-2"
         >
           {status === "sent" ? "Inscrit" : "S'inscrire"}
         </button>

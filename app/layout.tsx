@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Newsreader, Roboto } from "next/font/google";
 import BookingBar from "@/components/BookingBar";
 import Header from "@/components/Header";
+import M3Ripple from "@/components/M3Ripple";
 import Footer from "@/components/Footer";
 import { site } from "@/lib/content";
 import "./globals.css";
@@ -41,7 +42,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={`${newsreader.variable} ${roboto.variable}`}>
+    // `suppressHydrationWarning` ne porte que sur les attributs de <html>
+    // lui-même, pas sur ses descendants : les extensions de navigateur (barres
+    // de traduction notamment) réécrivent sa classe avant l'hydratation, et
+    // React signalait un écart qui n'existe pas dans notre rendu.
+    <html
+      lang="fr"
+      className={`${newsreader.variable} ${roboto.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         {/* Sans JavaScript, les sections animées au défilement restent visibles */}
         <noscript>
@@ -51,7 +60,7 @@ export default function RootLayout({
       <body>
         <a
           href="#contenu"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-brand focus:px-4 focus:py-2 focus:text-white"
+          className="m3-button m3-filled m3-state sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50"
         >
           Aller au contenu
         </a>
@@ -59,6 +68,7 @@ export default function RootLayout({
         <main id="contenu">{children}</main>
         <Footer />
         <BookingBar />
+        <M3Ripple />
       </body>
     </html>
   );

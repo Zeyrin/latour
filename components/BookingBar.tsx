@@ -31,7 +31,7 @@ export default function BookingBar() {
         <a
           href={site.phoneHref}
           tabIndex={visible ? undefined : -1}
-          className="eyebrow tap flex-1 border border-brand text-brand"
+          className="m3-button m3-outlined m3-state flex-1"
         >
           Appeler
         </a>
@@ -40,7 +40,7 @@ export default function BookingBar() {
           target="_blank"
           rel="noreferrer"
           tabIndex={visible ? undefined : -1}
-          className="eyebrow tap flex-1 bg-brand text-white"
+          className="m3-button m3-filled m3-state flex-1"
         >
           Réserver
         </a>

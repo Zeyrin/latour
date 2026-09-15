@@ -80,7 +80,7 @@ export default function Testimonials() {
               type="button"
               onClick={() => go(index - 1)}
               aria-label="Témoignage précédent"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/50 text-lg transition-colors hover:bg-white hover:text-brand"
+              className="m3-icon-button m3-icon-button-outlined m3-state text-lg"
             >
               ‹
             </button>
@@ -93,7 +93,7 @@ export default function Testimonials() {
                     onClick={() => setIndex(i)}
                     aria-label={`Témoignage ${i + 1} sur ${total}`}
                     aria-current={i === index}
-                    className="flex h-11 w-6 items-center justify-center"
+                    className="m3-state flex h-12 w-8 items-center justify-center rounded-full"
                   >
                     <span
                       className={`block h-2 rounded-full transition-all duration-300 ${
@@ -109,7 +109,7 @@ export default function Testimonials() {
               type="button"
               onClick={() => go(index + 1)}
               aria-label="Témoignage suivant"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/50 text-lg transition-colors hover:bg-white hover:text-brand"
+              className="m3-icon-button m3-icon-button-outlined m3-state text-lg"
             >
               ›
             </button>

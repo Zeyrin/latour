@@ -1,10 +1,10 @@
-import Business from "@/components/Business";
+import Closing from "@/components/Closing";
 import Domaine from "@/components/Domaine";
+import Facets from "@/components/Facets";
 import Gallery from "@/components/Gallery";
 import Hero from "@/components/Hero";
+import Highlights from "@/components/Highlights";
 import SeoBlock from "@/components/SeoBlock";
-import Spa from "@/components/Spa";
-import Suites from "@/components/Suites";
 import Testimonials from "@/components/Testimonials";
 import { site } from "@/lib/content";
 
@@ -36,13 +36,19 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero />
-      <Gallery />
-      <Suites />
+      <Highlights />
       <Domaine />
-      <Spa />
-      <Business />
-      <SeoBlock />
+      {/* Les trois facettes (suites, spa, entreprises) dans une seule section
+          à onglets, plutôt qu'un résumé suivi de trois sections détaillées :
+          la page était trop longue à parcourir pour un contenu qui se
+          répétait déjà en partie. */}
+      <Facets />
+      <Gallery />
       <Testimonials />
+      {/* La conversion passe avant le texte de référencement, qui ferme la
+          page en note discrète. */}
+      <Closing />
+      <SeoBlock />
     </>
   );
 }
