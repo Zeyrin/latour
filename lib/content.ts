@@ -350,7 +350,8 @@ export const footerLinks = [
   { label: "Bon cadeau", href: site.giftUrl },
   { label: "Spa TerreHappy", href: "/le-spa" },
   { label: "Mentions légales", href: "/mentions-legales" },
-  { label: "Dossier de presse", href: "/dossier-de-presse" },
+  // Le dossier de presse est un document InDesign publié chez Adobe
+  { label: "Dossier de presse", href: "https://indd.adobe.com/view/ad36595b-5c01-456d-a600-23877dd7044b" },
 ];
 
 /**

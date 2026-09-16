@@ -21,17 +21,17 @@ quoi que ce soit.
 | Fichier | Où | Cadre à l'écran | Définition minimale conseillée |
 | --- | --- | --- | --- |
 | `hero-chateau.jpg` | Bandeau d'accueil | Plein écran, recadré | **2800 × 1900** (3:2 ou 4:3) |
-| `suite-feu.jpg` | Carte Suite Feu | Portrait 4:5 | **1200 × 1500** |
-| `suite-eau.jpg` | Carte Suite Eau | Portrait 4:5 | **1200 × 1500** |
-| `cottage-bois.jpg` | Carte Cottage Bois | Portrait 4:5 | **1200 × 1500** |
-| `spa-terrehappy.jpg` | Bandeau Spa | Pleine largeur, recadré | **2400 × 1350** (16:9) |
-| `galerie-parc.jpg` | Galerie, grande vignette | Carré 1:1 | **1800 × 1800** |
+| `suite-feu.jpg` | Accueil (onglet Suites), liste et fiche Suite Feu | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
+| `suite-eau.jpg` | Idem, Suite Eau | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
+| `cottage-bois.jpg` | Idem, Cottage Bois | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
+| `suite-metal.jpg` | Liste et fiche Suite Métal | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
+| `suite-terre.jpg` | Liste et fiche Suite Terre | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
+| `spa-terrehappy.jpg` | Accueil (onglet Spa) et tête de la page Spa | 4:3 ; 21:9 recadré en tête de page | **2400 × 1800** |
+| `seminaire-salle-alienor.jpg` | Accueil (section Séminaires) et tête de la page Événements | 4:3 ; 21:9 recadré en tête de page | **2400 × 1800** |
+| `galerie-parc.jpg` | Galerie, grande vignette, et tête de la page Domaine | Carré 1:1 ; 21:9 recadré en tête de page | **2400 × 1800** |
 | `galerie-piscine.jpg` | Galerie | Carré 1:1 | **1400 × 1400** |
 | `galerie-petit-dejeuner.jpg` | Galerie | Carré 1:1 | **1400 × 1400** |
-| `galerie-suite-metal.jpg` | Galerie | Carré 1:1 | **1400 × 1400** |
-| `galerie-suite-terre.jpg` | Galerie | Carré 1:1 | **1400 × 1400** |
 | `galerie-facade.jpg` | Galerie | Carré 1:1 | **1400 × 1400** |
-| `seminaire-salle-alienor.jpg` | Section Séminaires | Paysage 4:3 | **1600 × 1200** |
 
 Les photos de galerie sont aussi affichées en grand dans la visionneuse : plus
 la source est définie, mieux c'est. Une image plus grande que la valeur
@@ -43,10 +43,11 @@ indiquée ne pose aucun problème — le site génère lui-même toutes les tail
   sujet, en haut comme en bas ; un bandeau très panoramique ne laisse qu'une
   bande étroite sur téléphone. Le point de cadrage se règle sans retoucher le
   fichier, dans `lib/content.ts` (`hero.media.position`).
-- **Le bandeau Spa porte du texte à gauche.** Garder cette moitié calme :
-  ciel, mur, eau — pas de détail important.
-- **Les cartes de suites sont verticales.** Une photo horizontale y perdrait
-  ses bords gauche et droit.
+- **Les photos de suites sont verticales sur téléphone** (4:5) et horizontales
+  sur ordinateur (4:3) : le sujet doit tenir au centre, avec de la marge de
+  tous les côtés.
+- **Les têtes de page (spa, événements, domaine) sont recadrées en bandeau
+  21:9 sur ordinateur.** Prévoir de la marge en haut et en bas.
 - **La galerie recadre en carré.** Le sujet doit tenir au centre.
 - **La photo séminaire doit montrer la salle Aliénor d'Aquitaine dressée** —
   tables installées, salle prête. Une salle vide se vend mal.

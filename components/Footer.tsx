@@ -59,9 +59,20 @@ export default function Footer() {
           <ul className="mt-3 flex flex-col items-start">
             {links.map((link) => (
               <li key={link.label}>
-                <Link href={link.href} className="m3-button m3-text-button m3-state -ml-3">
-                  {link.label}
-                </Link>
+                {link.href.startsWith("http") ? (
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="m3-button m3-text-button m3-state -ml-3"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link href={link.href} className="m3-button m3-text-button m3-state -ml-3">
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

@@ -5,7 +5,7 @@ l'identité visuelle du site d'origine (WordPress / Elementor).
 
 ## Stack
 
-- Next.js 15 (App Router, React 19, TypeScript)
+- Next.js 16 (App Router, React 19, TypeScript)
 - Tailwind CSS v4 (tokens CSS-first dans `app/globals.css`)
 - Polices Google auto-hébergées via `next/font` (Newsreader, Roboto)
 - Aucune dépendance runtime tierce, aucun script externe
@@ -96,9 +96,27 @@ Ce script tourne aussi automatiquement avant `npm run build`.
 
 ## État
 
-Homepage complète. Les pages internes (suites, spa, week-ends & cures,
-événements, contact, bon cadeau, mentions légales) sont référencées dans la
-navigation mais restent à créer.
+Site complet : accueil, les cinq suites, spa, week-ends & cures, événements,
+domaine, informations pratiques, contact, mentions légales. Le bon cadeau et
+le dossier de presse sont des liens externes (Secret Box, Adobe).
+
+## Domaine et redirections
+
+Domaine canonique : `chateaulatoursegur.fr`. Les anciens domaines
+(`chateaulatoursegur.com`, `chambredhotesaintemilion.fr`, `spaterrehappy.fr`)
+doivent pointer sur le même déploiement : `redirects.mjs` les ramène en 308
+vers le canonique et redirige chaque ancienne URL WordPress vers la page
+équivalente. Les deux pages de spam de l'ancien sitemap répondent 410.
+Après mise en ligne : déclarer les quatre domaines dans Search Console et
+faire un « changement d'adresse » depuis `chambredhotesaintemilion.fr`.
+
+## À valider avec Corinne avant mise en ligne
+
+- Tarifs des suites, du spa et des événements (repris de l'ancien site).
+- Composition et prix des week-ends et cures (`lib/pages.ts`, `staysPage`) :
+  seuls les noms sont connus.
+- Hébergeur pour les mentions légales (`lib/content.ts`, `legal.host`).
+- Adresse e-mail `contact@chateaulatoursegur.com` toujours relevée.
 
 ## Notes de reprise
 
