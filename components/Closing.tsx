@@ -15,18 +15,18 @@ export default function Closing() {
 
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
           <a
-            href={site.bookingUrl}
-            target="_blank"
-            rel="noreferrer"
+            href={site.phoneHref}
             className="m3-button m3-filled m3-state w-full max-w-xs sm:w-auto"
           >
-            Réserver en ligne
+            {site.phone}
           </a>
           <a
-            href={site.phoneHref}
+            href={closing.gift.href}
+            target="_blank"
+            rel="noreferrer"
             className="m3-button m3-outlined m3-state w-full max-w-xs sm:w-auto"
           >
-            {site.phone}
+            {closing.gift.label}
           </a>
         </div>
 

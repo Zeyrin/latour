@@ -104,8 +104,10 @@ navigation mais restent à créer.
 
 - Le WordPress d'origine contient du **spam injecté** (lien pharmacie dans le
   bloc « Bienvenue »). Il a été retiré du contenu repris.
-- La réservation passe par un prestataire externe (secretbox.fr) : l'URL est
-  centralisée dans `lib/content.ts` (`site.bookingUrl`) et reste à confirmer.
+- Secret Box (secretbox.fr) ne vend que des **bons cadeaux** — ce n'est pas un
+  moteur de réservation. L'URL est dans `lib/content.ts` (`site.giftUrl`). La
+  réservation se fait par téléphone / page contact (`site.bookingUrl`) tant
+  qu'aucun moteur de réservation n'est choisi.
 - Le formulaire newsletter n'est pas encore branché sur un prestataire d'emailing.
 - **Photos en attente de livraison.** Les visuels actuellement en place
   proviennent de l'ancien site et sont de faible définition (suites en 408×276,

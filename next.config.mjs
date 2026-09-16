@@ -1,3 +1,5 @@
+import redirects from "./redirects.mjs";
+
 const isDev = process.env.NODE_ENV !== "production";
 
 /**
@@ -21,7 +23,6 @@ const csp = [
   "font-src 'self'",
   // Le websocket du rechargement à chaud ne tourne qu'en développement
   `connect-src 'self'${isDev ? " ws: http://localhost:*" : ""}`,
-  "frame-src 'self' https://www.google.com https://www.secretbox.fr",
   "form-action 'self'",
   "frame-ancestors 'none'",
   "base-uri 'self'",
@@ -67,6 +68,9 @@ const nextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+
+  // Anciennes URL WordPress et domaines secondaires, voir redirects.mjs
+  redirects,
 };
 
 export default nextConfig;

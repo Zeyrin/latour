@@ -20,8 +20,8 @@ export default function Gallery() {
   });
 
   return (
-    // Facets, juste au-dessus, est en fond blanc.
-    <section className="bg-sand section-y">
+    // Business, juste au-dessus, est en fond sable.
+    <section className="section-y">
       <div className="container-latour">
         <Reveal className="text-center">
           <p className="eyebrow text-stone">{gallery.eyebrow}</p>

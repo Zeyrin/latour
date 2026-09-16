@@ -34,8 +34,6 @@ export default function Domaine() {
             ))}
           </div>
 
-          <p className="eyebrow mt-6 text-brand">{domaine.hosts}</p>
-
           <Link
             href={domaine.cta.href}
             className="m3-button m3-outlined m3-state mt-8"

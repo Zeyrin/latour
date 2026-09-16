@@ -1,10 +1,11 @@
+import Business from "@/components/Business";
 import Closing from "@/components/Closing";
 import Domaine from "@/components/Domaine";
-import Facets from "@/components/Facets";
 import Gallery from "@/components/Gallery";
 import Hero from "@/components/Hero";
 import Highlights from "@/components/Highlights";
 import SeoBlock from "@/components/SeoBlock";
+import SuitesSpa from "@/components/SuitesSpa";
 import Testimonials from "@/components/Testimonials";
 import { site } from "@/lib/content";
 
@@ -38,11 +39,10 @@ export default function Home() {
       <Hero />
       <Highlights />
       <Domaine />
-      {/* Les trois facettes (suites, spa, entreprises) dans une seule section
-          à onglets, plutôt qu'un résumé suivi de trois sections détaillées :
-          la page était trop longue à parcourir pour un contenu qui se
-          répétait déjà en partie. */}
-      <Facets />
+      {/* Suites et spa ensemble (même promesse, deux onglets) ; les
+          séminaires dans leur propre section, autre public, autre parcours. */}
+      <SuitesSpa />
+      <Business />
       <Gallery />
       <Testimonials />
       {/* La conversion passe avant le texte de référencement, qui ferme la

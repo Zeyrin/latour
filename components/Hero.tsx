@@ -46,14 +46,12 @@ export default function Hero() {
             « outlined » pour l'action secondaire. Sous `on-dark`, les rôles
             basculent — le blanc devient la couleur primaire. */}
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 md:mt-10">
-          <a
+          <Link
             href={hero.cta.href}
-            target="_blank"
-            rel="noreferrer"
             className="m3-button m3-filled m3-state w-full max-w-xs sm:w-auto"
           >
             {hero.cta.label}
-          </a>
+          </Link>
           <Link
             href={hero.ctaSecondary.href}
             className="m3-button m3-outlined m3-state w-full max-w-xs sm:w-auto"

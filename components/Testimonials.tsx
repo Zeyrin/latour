@@ -40,6 +40,23 @@ export default function Testimonials() {
           {testimonials.title}
         </h2>
 
+        {/* La note Google est la preuve sociale la plus vérifiable : elle
+            renvoie vers la fiche plutôt que de rester une affirmation. */}
+        <p className="mt-4 text-center">
+          <a
+            href={testimonials.google.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="m3-state inline-flex items-center gap-2 rounded-full px-3 py-1 text-white/85"
+          >
+            <span aria-hidden className="text-base leading-none">★</span>
+            <span className="eyebrow">
+              {testimonials.google.rating}/5 {testimonials.google.label} ·{" "}
+              {testimonials.google.count} avis
+            </span>
+          </a>
+        </p>
+
         <div
           className="mx-auto mt-10 max-w-3xl md:mt-12"
           onKeyDown={(e) => {
@@ -70,7 +87,12 @@ export default function Testimonials() {
               >
                 <p className="text-xl italic md:text-2xl">{item.heading}</p>
                 <p className="text-white/85">«&nbsp;{item.quote}&nbsp;»</p>
-                <footer className="eyebrow text-white/70">{item.author}</footer>
+                <footer className="eyebrow text-white/70">
+                  {item.author}
+                  {"meta" in item && item.meta && (
+                    <span className="mt-1 block text-white/50">{item.meta}</span>
+                  )}
+                </footer>
               </blockquote>
             ))}
           </div>

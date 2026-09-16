@@ -28,6 +28,8 @@ export const metadata: Metadata = {
     template: `%s — ${site.name}`,
   },
   description: site.description,
+  // Domaine canonique : les anciens domaines redirigent ici (redirects.mjs)
+  alternates: { canonical: "/" },
   openGraph: {
     title: site.title,
     description: site.description,

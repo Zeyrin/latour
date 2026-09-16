@@ -120,12 +120,14 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-4">
-          <Link
-            href="/bon-cadeau"
+          <a
+            href={site.giftUrl}
+            target="_blank"
+            rel="noreferrer"
             className="m3-button m3-filled m3-state hidden sm:inline-flex"
           >
             Bon cadeau
-          </Link>
+          </a>
 
           <button
             type="button"
@@ -188,12 +190,14 @@ export default function Header() {
           ))}
 
           <li className="py-4">
-            <Link
-              href="/bon-cadeau"
+            <a
+              href={site.giftUrl}
+              target="_blank"
+              rel="noreferrer"
               className="m3-button m3-filled m3-state w-full"
             >
               Bon cadeau
-            </Link>
+            </a>
           </li>
 
           <li className="pb-6 text-center">

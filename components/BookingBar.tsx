@@ -4,9 +4,14 @@ import { useEffect, useState } from "react";
 import { site } from "@/lib/content";
 
 /**
- * Barre d'action mobile : sur petit écran, réserver et appeler doivent rester
- * à portée de pouce sans remonter au header. Elle n'apparaît qu'une fois le
- * hero dépassé, pour ne pas concurrencer l'appel à l'action principal.
+ * Barre d'action mobile : sur petit écran, réserver doit rester à portée de
+ * pouce sans remonter au header. Elle n'apparaît qu'une fois le hero dépassé,
+ * pour ne pas concurrencer l'appel à l'action principal.
+ *
+ * Sans moteur de réservation, « Réserver » compose directement le numéro :
+ * c'est le vrai canal aujourd'hui. Le libellé reste court pour tenir sur une
+ * demi-largeur à 360 px (les boutons M3 ne passent pas à la ligne). Le bon
+ * cadeau (Secret Box) reste en second.
  */
 export default function BookingBar() {
   const [visible, setVisible] = useState(false);
@@ -29,16 +34,16 @@ export default function BookingBar() {
     >
       <div className="flex items-stretch gap-2 p-2">
         <a
-          href={site.phoneHref}
+          href={site.giftUrl}
+          target="_blank"
+          rel="noreferrer"
           tabIndex={visible ? undefined : -1}
           className="m3-button m3-outlined m3-state flex-1"
         >
-          Appeler
+          Bon cadeau
         </a>
         <a
-          href={site.bookingUrl}
-          target="_blank"
-          rel="noreferrer"
+          href={site.phoneHref}
           tabIndex={visible ? undefined : -1}
           className="m3-button m3-filled m3-state flex-1"
         >
