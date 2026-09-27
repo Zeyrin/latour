@@ -1,4 +1,5 @@
 import Reveal from "@/components/Reveal";
+import SplitText from "@/components/SplitText";
 import GalleryGrid from "@/components/GalleryGrid";
 import { gallery } from "@/lib/content";
 import { entryFor } from "@/lib/media";
@@ -20,12 +21,13 @@ export default function Gallery() {
   });
 
   return (
-    // Business, juste au-dessus, est en fond sable.
     <section className="section-y">
       <div className="container-latour">
         <Reveal className="text-center">
           <p className="eyebrow text-stone">{gallery.eyebrow}</p>
-          <h2 className="title-section mt-3">{gallery.title}</h2>
+          <h2 className="title-section mt-3">
+            <SplitText text={gallery.title} />
+          </h2>
           <p className="mx-auto mt-5 max-w-2xl text-stone">{gallery.text}</p>
         </Reveal>
 

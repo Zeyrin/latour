@@ -1,4 +1,6 @@
+import { euro } from "./format";
 import type { MediaAsset } from "./media";
+import { eventsPage, spaPage, suites } from "./pages";
 
 export const site = {
   name: "Château Latour Ségur",
@@ -28,22 +30,20 @@ export const site = {
   heritage: "Château classé monument historique de France depuis 2016",
 } as const;
 
+/**
+ * Navigation. Les trois activités du domaine — suites, spa, séminaires — y ont
+ * le même rang : aucune n'est rangée sous une autre.
+ */
 export const nav = [
-  { label: "Château Latour Ségur", href: "/" },
+  { label: "Le domaine", href: "/le-domaine" },
   {
-    label: "Les suites du château",
+    label: "Les suites",
     href: "/les-suites",
-    children: [
-      { label: "Suite Eau", href: "/les-suites/suite-eau" },
-      { label: "Suite Feu", href: "/les-suites/suite-feu" },
-      { label: "Cottage Bois", href: "/les-suites/cottage-bois" },
-      { label: "Gîte Suite Metal", href: "/les-suites/gite-suite-metal" },
-      { label: "Gîte Suite Terre", href: "/les-suites/gite-suite-terre" },
-    ],
+    children: suites.map((s) => ({ label: s.name, href: `/les-suites/${s.slug}` })),
   },
-  { label: "Week-ends & cures", href: "/week-ends-et-cures" },
   { label: "Le spa", href: "/le-spa" },
-  { label: "Événements", href: "/evenements" },
+  { label: "Séminaires & événements", href: "/evenements" },
+  { label: "Week-ends & cures", href: "/week-ends-et-cures" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
@@ -54,9 +54,7 @@ export const hero = {
   place: "Lussac, aux portes de Saint-Émilion",
   title: "Offrez un Moment d'Exception",
   subtitle:
-    "Cinq suites d'hôtes et un spa privatisable dans un château classé, au cœur d'un parc ombragé.",
-  cta: { label: "Réserver votre séjour", href: site.bookingUrl },
-  ctaSecondary: { label: "Découvrir nos offres", href: "/week-ends-et-cures" },
+    "Un château classé au cœur d'un parc ombragé : cinq suites d'hôtes, un spa à privatiser et des salles pour vos séminaires et réceptions.",
   media: {
     src: "/images/hero-chateau.jpg",
     alt: "Le Château Latour Ségur et son parc au cœur du vignoble de Lussac Saint-Émilion",
@@ -66,162 +64,169 @@ export const hero = {
 };
 
 /**
- * Accueil et présentation du domaine, réunis en une seule section.
- * Les blocs « Bienvenue » et « Au cœur des traditions » du site d'origine
- * répétaient les mêmes informations : deux phrases redondantes ont été
- * écartées, aucune information distinctive n'a été perdue.
- */
-/**
- * Repères sous le hero : quatre faits vérifiables qui distinguent le domaine,
- * lisibles en quelques secondes. Tous sont déjà affirmés ailleurs dans la page
- * — le bandeau ne fait que les rendre saisissables avant le premier défilement.
+ * Repères sous le hero : des faits qui valent pour tout le domaine, quelle
+ * que soit la raison de la visite. Les chiffres propres aux suites, au spa ou
+ * aux séminaires sont dans leur chapitre respectif.
  */
 export const highlights = [
   { value: "Monument historique", detail: "Château classé depuis 2016" },
-  { value: "Spa TerreHappy®", detail: "Privatisable en couple ou entre amies" },
-  { value: "Piscine chauffée", detail: "Extérieure, dans le parc" },
-  { value: "Suites de 28 à 60 m²", detail: "Cheminée et bain à remous" },
+  { value: "Parc de 4 hectares", detail: "Étangs, douves et potager" },
+  { value: "Piscine chauffée", detail: "Extérieure, de mai à septembre" },
+  { value: "Saint-Émilion à 8 km", detail: "Bordeaux à 45 min" },
 ];
 
 export const domaine = {
   eyebrow: "Au cœur des traditions",
   title: "Bienvenue au Château Latour Ségur",
-  subtitle: "Suites & Spa TerreHappy® — Lussac Saint-Émilion",
+  subtitle: "Suites · Spa · Séminaires — Lussac Saint-Émilion",
   icon: "/images/icone-village.png",
   paragraphs: [
-    "Amoureuse des belles bâtisses et soucieuse du bien-être de ses invités, Corinne Dray vous accueille pour un séjour reposant et bucolique proche du vignoble Saint-Émilionnais.",
-    "Au cœur d'un parc ombragé avec étangs, ce lieu sera idéal pour vous ressourcer.",
-    "Aménagées dans les dépendances du château, les chambres d'hôtes de charme et les vastes suites vous séduiront grâce à leur atmosphère agréable et paisible.",
-    "Des chambres en suite de 28 à 60 m² avec cheminée et bain à remous sur le thème des 5 éléments.",
+    "Amoureuse des belles bâtisses et soucieuse du bien-être de ses invités, Corinne Dray vous accueille dans un domaine reposant et bucolique, proche du vignoble Saint-Émilionnais.",
+    "Au cœur d'un parc ombragé avec étangs, le château réunit cinq suites de charme aménagées dans ses dépendances, le Spa TerreHappy® et la salle Aliénor d'Aquitaine, dans l'ancienne chapelle.",
   ],
   cta: { label: "Découvrir le domaine", href: "/le-domaine" },
 };
 
-/**
- * Les facettes du domaine. Suites et Spa partagent une section à onglets
- * (voir SuitesSpa.tsx) : c'est la même promesse — le séjour — vue sous deux
- * angles. Les séminaires s'adressent à un autre public et ont leur propre
- * section (voir Business.tsx), pour ne pas mélanger un devis d'entreprise
- * avec une réservation de week-end.
- *
- * Note pour Corinne : la photo « Séminaires & Entreprises » est un visuel
- * temporaire (banc d'essai Unsplash, salle d'un autre établissement) — la
- * vraie photo de la salle Aliénor d'Aquitaine dressée reste attendue, voir
- * ASSETS.md. Il suffira de remplacer le fichier `seminaire-salle-alienor.jpg`
- * pour qu'elle s'affiche partout où ce visuel est utilisé.
- */
-export type Facet = {
-  id: string;
-  tab: string;
+/* ---------------------------------------------------------------------------
+   Les trois facettes du domaine
+   Suites, spa et séminaires sont trois activités de même rang. Elles partagent
+   un seul type et un seul gabarit (Chapter.tsx) : même structure, même nombre
+   de chiffres clés, deux actions chacune. Seule la tonalité de fond les
+   distingue. Toute évolution de l'une se répercute donc sur les trois.
+   ------------------------------------------------------------------------ */
+
+export type Chapter = {
+  id: "suites" | "spa" | "seminaires";
+  /** Verbe du triptyque : ce que l'on vient faire */
+  verb: string;
   eyebrow: string;
   title: string;
   intro: string;
-  href: string;
-  ctas: { label: string; href: string }[];
+  /** Une ligne pour le panneau du triptyque */
+  pitch: string;
+  /** Fond de section : blanc, aplat de marque, sable */
+  tone: "light" | "dark" | "sand";
   media: MediaAsset;
-  list?: { name: string; href: string; excerpt: string }[];
-  chips?: string[];
-  stats?: { value: string; unit: string; detail: string }[];
+  /** Photo du triptyque, cadrée en portrait */
+  door: MediaAsset;
+  stats: { value: string; unit: string }[];
+  itemsLabel: string;
+  items: { name: string; meta: string; detail: string; href?: string }[];
+  ctas: [{ label: string; href: string }, { label: string; href: string }];
 };
 
-export const suitesSpa = {
-  eyebrow: "Séjour & bien-être",
-  title: "Cinq suites de caractère, un spa à privatiser",
-  facets: [
-    {
-      id: "suites",
-      tab: "Les suites",
-      eyebrow: "Les suites",
-      title: "Séjourner au château",
-      intro: "Cinq suites de caractère, de 28 à 60 m², dans les dépendances du domaine.",
-      href: "/les-suites",
-      ctas: [{ label: "Voir les cinq suites", href: "/les-suites" }],
-      media: {
-        src: "/images/suite-eau.jpg",
-        alt: "La Suite Eau et son bain à remous",
-      } satisfies MediaAsset,
-      list: [
-        {
-          name: "Suite Feu",
-          href: "/les-suites/suite-feu",
-          excerpt:
-            "Situé au cœur du vignoble bordelais, venez séjourner dans une suite de charme, sous la thématique des 5 éléments…",
-        },
-        {
-          name: "Suite Eau",
-          href: "/les-suites/suite-eau",
-          excerpt:
-            "Laissez-vous surprendre par la suite Eau, combinaison parfaite de raffinement et de douceur aux ambiances de l'eau.",
-        },
-        {
-          name: "Cottage Bois",
-          href: "/les-suites/cottage-bois",
-          excerpt:
-            "Couleur du blé, de la pierre et du bois qui embellissent, font de ce cottage un endroit très agréable pour se ressourcer.",
-        },
-      ],
-    },
-    {
-      id: "spa",
-      tab: "Spa TerreHappy®",
-      eyebrow: "Spa TerreHappy®",
-      title: "Se ressourcer au spa",
-      intro:
-        "Spa TerreHappy® vous donne la possibilité de privatiser ce lieu magique pour une journée, un après-midi ou une soirée, entre amies ou en couple. Profitez de l'espace spa et détente en toute intimité et relaxez-vous.",
+const nights = suites.map((s) => s.rates.night);
+const surfaces = suites.map((s) => s.surface);
+const saloon = eventsPage.venues[0];
+
+export const chapters: Chapter[] = [
+  {
+    id: "suites",
+    verb: "Séjourner",
+    eyebrow: "Les suites",
+    title: "Cinq suites, cinq éléments",
+    intro:
+      "Aménagées dans les dépendances du château, les suites reprennent le thème des cinq éléments. Chacune a sa cheminée, son jardin et sa cuisine ; toutes donnent accès au parc et à la piscine chauffée.",
+    pitch: "Cinq suites de caractère avec cheminée, jardin et bain à remous.",
+    tone: "light",
+    media: { src: "/images/suite-eau.jpg", alt: "La Suite Eau et son bain à remous" },
+    door: { src: "/images/suite-feu.jpg", alt: "La Suite Feu et sa cheminée" },
+    stats: [
+      { value: String(suites.length), unit: "suites d'hôtes" },
+      { value: `${Math.min(...surfaces)}–${Math.max(...surfaces)}`, unit: "m² par suite" },
+      { value: `${Math.min(...nights)} €`, unit: "la nuit, à partir de" },
+    ],
+    itemsLabel: "Les cinq suites",
+    items: suites.map((s) => ({
+      name: s.name,
+      meta: `${s.surface} m²`,
+      detail: s.highlights.filter((h) => !h.endsWith("m²")).slice(0, 3).join(" · "),
+      href: `/les-suites/${s.slug}`,
+    })),
+    ctas: [
+      { label: "Voir les suites", href: "/les-suites" },
+      { label: "Réserver une suite", href: "/contact" },
+    ],
+  },
+  {
+    id: "spa",
+    verb: "Se ressourcer",
+    eyebrow: "Spa TerreHappy®",
+    title: "Un spa à privatiser",
+    intro:
+      "Le Spa TerreHappy® se privatise pour une journée, un après-midi ou une soirée, entre amies ou en couple. Hammam creusé dans la roche, bain à remous aux minéraux de la mer Morte et soins imaginés par Corinne Dray.",
+    pitch: "Hammam, bain à remous et soins, pour vous seuls.",
+    tone: "dark",
+    media: { src: "/images/spa-terrehappy.jpg", alt: "L'espace détente du Spa TerreHappy" },
+    door: { src: "/images/spa-terrehappy.jpg", alt: "L'espace détente du Spa TerreHappy" },
+    stats: [
+      { value: spaPage.facilities[0].value, unit: "cabines de soins" },
+      { value: spaPage.facilities[3].value, unit: "personnes en privé" },
+      { value: `${spaPage.packages[0].price} €`, unit: "l'accès, à partir de" },
+    ],
+    itemsLabel: "Les formules",
+    items: spaPage.packages.map((p) => ({
+      name: p.name,
+      meta: euro(p.price),
+      detail: p.duration,
       href: "/le-spa",
-      ctas: [{ label: "Découvrir nos soins", href: "/le-spa" }],
-      media: {
-        src: "/images/spa-terrehappy.jpg",
-        alt: "L'espace détente du Spa TerreHappy",
-      } satisfies MediaAsset,
+    })),
+    ctas: [
+      { label: "Découvrir le spa", href: "/le-spa" },
+      { label: "Réserver un soin", href: "/contact" },
+    ],
+  },
+  {
+    id: "seminaires",
+    verb: "Se réunir",
+    eyebrow: "Séminaires & événements",
+    title: "Réunir et recevoir au château",
+    intro:
+      "À quelques kilomètres de Saint-Émilion et à courte distance de Bordeaux, le domaine accueille séminaires, réunions de direction, réceptions et mariages, dans un cadre qui change de la salle de réunion.",
+    pitch: "Une ancienne chapelle, un parc et cinq suites pour vos invités.",
+    tone: "sand",
+    media: {
+      src: "/images/seminaire-salle-alienor.jpg",
+      alt: "La salle Aliénor d'Aquitaine dressée pour un séminaire",
     },
-  ] satisfies Facet[],
+    door: {
+      src: "/images/seminaire-salle-alienor.jpg",
+      alt: "La salle Aliénor d'Aquitaine dressée pour un séminaire",
+    },
+    stats: [
+      { value: "60", unit: "personnes assises" },
+      { value: "140", unit: "en cocktail" },
+      { value: "120", unit: "m² dans la chapelle" },
+    ],
+    itemsLabel: "Les espaces",
+    items: [
+      { name: saloon.name, meta: "120 m²", detail: "Dès 1 600 € les 4 heures", href: "/evenements" },
+      { name: "Le parc et ses étangs", meta: "4 ha", detail: "Cocktails, ateliers en plein air", href: "/evenements" },
+      { name: "Spa TerreHappy® en exclusivité", meta: "12 pers.", detail: "Privatisation : 1 500 €", href: "/le-spa" },
+      { name: "Les suites pour vos invités", meta: "5 suites", detail: "Vos participants dorment sur place", href: "/les-suites" },
+      { name: "Restauration", meta: "sur place", detail: "À partir de 55 € par personne", href: "/evenements" },
+    ],
+    ctas: [
+      { label: "Voir les espaces", href: "/evenements" },
+      { label: "Demander un devis", href: "/contact" },
+    ],
+  },
+];
+
+export const triptych = {
+  eyebrow: "Suites · Spa · Séminaires",
+  title: "Trois façons de vivre le domaine",
 };
 
-export const business: Facet = {
-  id: "entreprises",
-  tab: "Séminaires & Entreprises",
-  eyebrow: "Séminaires & entreprises",
-  title: "Réunir vos équipes au cœur du vignoble",
-  intro:
-    "À quelques kilomètres de Saint-Émilion et à courte distance de Bordeaux, le domaine accueille séminaires, journées d'étude, réunions de direction et réceptions clients dans un cadre qui change de la salle de réunion.",
-  href: "/evenements",
-  ctas: [
-    { label: "Demander un devis", href: "/contact" },
-    { label: "Voir les espaces", href: "/evenements" },
-  ],
-  media: {
-    src: "/images/seminaire-salle-alienor.jpg",
-    alt: "La salle Aliénor d'Aquitaine dressée pour un séminaire",
-  } satisfies MediaAsset,
-  chips: [
-    "Séminaire résidentiel",
-    "Journée d'étude",
-    "Réunion de direction",
-    "Team building",
-    "Réception client",
-    "Soirée d'entreprise",
-  ],
-  // Chiffres tirés de l'offre événementielle du domaine — à revalider avec
-  // Corinne avant toute mise en ligne commerciale.
-  stats: [
-    {
-      value: "60",
-      unit: "personnes assises",
-      detail: "Salle Aliénor d'Aquitaine, jusqu'à 140 en format cocktail.",
-    },
-    {
-      value: "5",
-      unit: "suites sur place",
-      detail: "Vos participants dorment sur le domaine, avec accès à la piscine.",
-    },
-    {
-      value: "1",
-      unit: "parc privatisable",
-      detail: "Étangs, espaces extérieurs et spa TerreHappy en exclusivité.",
-    },
-  ],
-};
+/** Bandeau défilant entre deux sections : décoratif, masqué aux lecteurs d'écran. */
+export const marquee = [
+  "Monument historique",
+  "Suites de charme",
+  "Spa TerreHappy®",
+  "Séminaires & réceptions",
+  "Piscine chauffée",
+  "Saint-Émilion",
+];
 
 /**
  * Avis relevés sur la fiche Google du domaine le 17 sept. 2026 (4,6/5 sur
@@ -298,8 +303,8 @@ export const testimonials = {
 };
 
 /**
- * Quatre photos plutôt que six : les suites sont déjà montrées dans l'onglet
- * Suites de la section Suites & Spa, pas besoin de les répéter ici. Note :
+ * Quatre photos plutôt que six : les suites sont déjà montrées dans leur
+ * chapitre, pas besoin de les répéter ici. Note :
  * pas de page galerie dédiée pour l'instant, donc pas de lien « voir toutes
  * les photos » — il pointerait vers rien.
  */
@@ -332,9 +337,15 @@ export const gallery = {
  * mais sur grand écran la page se terminait sans aucune action possible.
  */
 export const closing = {
-  eyebrow: "Séjourner au château",
-  title: "Réservez vos dates",
-  text: "Les suites partent vite sur les week-ends et les périodes de vendanges. Un appel suffit pour réserver, composer un séjour sur mesure ou privatiser le domaine.",
+  eyebrow: "Réservation",
+  title: "Le temps semble suspendu",
+  text: "Une nuit, un soin ou un séminaire : Corinne vous répond directement. Les week-ends et les périodes de vendanges partent vite.",
+  // Une action par facette, au même niveau visuel
+  actions: [
+    { label: "Réserver une suite", href: "/contact" },
+    { label: "Réserver le spa", href: "/contact" },
+    { label: "Demander un devis", href: "/contact" },
+  ],
   gift: { label: "Offrir un bon cadeau", href: site.giftUrl },
 };
 
@@ -345,10 +356,11 @@ export const seoBlock = {
 };
 
 export const footerLinks = [
+  { label: "Les suites", href: "/les-suites" },
+  { label: "Spa TerreHappy®", href: "/le-spa" },
+  { label: "Séminaires & événements", href: "/evenements" },
   { label: "Informations pratiques", href: "/informations-pratiques" },
-  { label: "Réservez votre séjour", href: site.bookingUrl },
   { label: "Bon cadeau", href: site.giftUrl },
-  { label: "Spa TerreHappy", href: "/le-spa" },
   { label: "Mentions légales", href: "/mentions-legales" },
   // Le dossier de presse est un document InDesign publié chez Adobe
   { label: "Dossier de presse", href: "https://indd.adobe.com/view/ad36595b-5c01-456d-a600-23877dd7044b" },

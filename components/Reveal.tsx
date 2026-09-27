@@ -37,6 +37,8 @@ export default function Reveal({ children, delay = 0, className = "" }: Props) {
     <div
       ref={ref}
       data-reveal=""
+      // Déclencheur des animations internes (titres mot à mot, rideaux photo)
+      data-shown={shown ? "" : undefined}
       className={`${shown ? "animate-reveal" : "opacity-0"} ${className}`}
       style={shown && delay ? { animationDelay: `${delay}s` } : undefined}
     >

@@ -1,13 +1,14 @@
-import Business from "@/components/Business";
+import Chapter from "@/components/Chapter";
 import Closing from "@/components/Closing";
 import Domaine from "@/components/Domaine";
 import Gallery from "@/components/Gallery";
 import Hero from "@/components/Hero";
 import Highlights from "@/components/Highlights";
+import Marquee from "@/components/Marquee";
 import SeoBlock from "@/components/SeoBlock";
-import SuitesSpa from "@/components/SuitesSpa";
 import Testimonials from "@/components/Testimonials";
-import { site } from "@/lib/content";
+import Triptych from "@/components/Triptych";
+import { chapters, site } from "@/lib/content";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -39,12 +40,18 @@ export default function Home() {
       <Hero />
       <Highlights />
       <Domaine />
-      {/* Suites et spa ensemble (même promesse, deux onglets) ; les
-          séminaires dans leur propre section, autre public, autre parcours. */}
-      <SuitesSpa />
-      <Business />
-      <Gallery />
+      {/* Suites, spa, séminaires : trois facettes de même rang. Le triptyque
+          les présente côte à côte, puis chacune a son chapitre, bâti sur le
+          même gabarit. */}
+      <Triptych />
+      {chapters.map((chapter, index) => (
+        <Chapter key={chapter.id} chapter={chapter} index={index} />
+      ))}
+      <Marquee />
+      {/* Témoignages (aplat sombre) avant la galerie (blanc), pour que la
+          clôture, sombre elle aussi, ne leur soit pas accolée. */}
       <Testimonials />
+      <Gallery />
       {/* La conversion passe avant le texte de référencement, qui ferme la
           page en note discrète. */}
       <Closing />

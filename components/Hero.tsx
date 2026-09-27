@@ -1,20 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import Media from "@/components/Media";
-import { hero } from "@/lib/content";
+import SplitText from "@/components/SplitText";
+import { chapters, hero } from "@/lib/content";
+
+/** Décalage d'une apparition au chargement, en millisecondes */
+const at = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
 export default function Hero() {
   return (
     <section
       aria-labelledby="hero-titre"
-      className="relative flex min-h-[88svh] items-center justify-center overflow-hidden md:min-h-svh"
+      className="relative flex min-h-[88svh] items-center justify-center overflow-hidden bg-brand md:min-h-svh"
     >
-      <Media asset={hero.media} sizes="100vw" priority quality={72} />
+      {/* Deux couches : la première descend au défilement (profondeur), la
+          photo à l'intérieur se désagrandit lentement à l'arrivée. */}
+      <div className="hero-parallax absolute inset-0">
+        <Media
+          asset={hero.media}
+          sizes="100vw"
+          priority
+          quality={72}
+          className="ken-burns"
+        />
+      </div>
 
       {/* Dégradé plutôt qu'un voile uniforme : la photo reste lisible en bas */}
-      <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/30 to-black/55" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/30 to-black/60" />
 
-      <div className="on-dark container-latour relative py-20 text-center text-white md:py-24">
+      <div className="hero-fade on-dark container-latour relative py-20 text-center text-white md:py-24">
         {/* Le classement est l'argument de confiance le plus fort du domaine :
             il se voit à l'arrivée, pas seulement dans le pied de page. Le
             logo est noir et rouge sur fond transparent — illisible sur la
@@ -26,64 +41,60 @@ export default function Hero() {
           height={512}
           sizes="96px"
           priority
-          className="mx-auto h-20 w-auto brightness-0 invert md:h-24"
+          style={at(100)}
+          className="rise-now mx-auto h-20 w-auto brightness-0 invert md:h-24"
         />
 
-        <p className="eyebrow mt-4 text-white/75">{hero.place}</p>
+        <p style={at(250)} className="rise-now eyebrow mt-4 text-white/75">
+          {hero.place}
+        </p>
 
         <h1
           id="hero-titre"
-          className="title-hero mx-auto mt-4 max-w-4xl text-white drop-shadow-sm"
+          className="split-now title-hero mx-auto mt-4 max-w-4xl text-white drop-shadow-sm"
         >
-          {hero.title}
+          <SplitText text={hero.title} delay={350} />
         </h1>
 
         {/* Le titre est une promesse, pas une description : cette ligne dit ce
             que l'on réserve réellement. */}
-        <p className="mx-auto mt-5 max-w-xl text-white/90 md:text-lg">{hero.subtitle}</p>
+        <p style={at(900)} className="rise-now mx-auto mt-5 max-w-xl text-white/90 md:text-lg">
+          {hero.subtitle}
+        </p>
 
-        {/* Hiérarchie M3 : bouton « filled » pour l'action de conversion,
-            « outlined » pour l'action secondaire. Sous `on-dark`, les rôles
-            basculent — le blanc devient la couleur primaire. */}
-        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 md:mt-10">
-          <Link
-            href={hero.cta.href}
-            className="m3-button m3-filled m3-state w-full max-w-xs sm:w-auto"
-          >
-            {hero.cta.label}
-          </Link>
-          <Link
-            href={hero.ctaSecondary.href}
-            className="m3-button m3-outlined m3-state w-full max-w-xs sm:w-auto"
-          >
-            {hero.ctaSecondary.label}
-          </Link>
-        </div>
+        {/* Trois portes de même rang, une par facette : aucune n'est l'action
+            « principale ». Elles mènent au chapitre correspondant. */}
+        <nav
+          aria-label="Les trois facettes du domaine"
+          style={at(1100)}
+          className="rise-now mt-9 md:mt-10"
+        >
+          <ul className="mx-auto grid max-w-xs gap-3 sm:max-w-none sm:grid-cols-3 sm:justify-center md:inline-grid">
+            {chapters.map((chapter) => (
+              <li key={chapter.id}>
+                <Link
+                  href={`#${chapter.id}`}
+                  className="m3-button m3-outlined m3-state w-full backdrop-blur-[2px] sm:min-w-44"
+                >
+                  {chapter.verb}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
 
-      {/* Repère de défilement cliquable, à partir de sm seulement : sur un
-          téléphone il chevaucherait les deux boutons empilés, et le hero à
-          88svh laisse déjà voir le haut de la section suivante. */}
+      {/* Repère de défilement, à partir de sm seulement : sur un téléphone il
+          chevaucherait les boutons empilés, et le hero à 88svh laisse déjà
+          voir le haut de la section suivante. */}
       <div className="on-dark absolute inset-x-0 bottom-6 hidden justify-center sm:flex">
         <Link
           href="#reperes"
           aria-label="Aller au contenu de la page"
-          className="m3-icon-button m3-state"
+          className="m3-state m3-corner-medium flex flex-col items-center gap-3 px-3 py-2 text-white/80"
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden
-            className="h-6 w-6 motion-safe:animate-bounce"
-          >
-            <path
-              d="M6 9l6 6 6-6"
-              stroke="currentColor"
-              strokeWidth="1.25"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <span className="eyebrow text-[0.625rem]">Découvrir</span>
+          <span aria-hidden className="scroll-cue" />
         </Link>
       </div>
     </section>

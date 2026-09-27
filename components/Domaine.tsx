@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import SplitText from "@/components/SplitText";
 import { domaine } from "@/lib/content";
 
 /**
@@ -10,7 +11,7 @@ import { domaine } from "@/lib/content";
  */
 export default function Domaine() {
   return (
-    <section className="bg-sand section-y">
+    <section className="bg-white section-y">
       <div className="container-latour grid items-center gap-8 md:grid-cols-[auto_1fr] md:gap-14">
         <Reveal className="flex justify-center">
           <Image
@@ -25,7 +26,9 @@ export default function Domaine() {
 
         <Reveal delay={0.08} className="text-center md:text-left">
           <p className="eyebrow text-stone">{domaine.eyebrow}</p>
-          <h2 className="title-section mt-3">{domaine.title}</h2>
+          <h2 className="title-section mt-3">
+            <SplitText text={domaine.title} />
+          </h2>
           <p className="eyebrow mt-4 text-mist">{domaine.subtitle}</p>
 
           <div className="mt-6 space-y-4 text-stone">

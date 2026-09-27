@@ -40,6 +40,26 @@ navigation — en capitales espacées). Conteneur : 1140 px.
   donc pas de saut de hauteur ; navigation au clavier, au swipe, défilement
   automatique suspendu au survol et au focus.
 - `prefers-reduced-motion` respecté partout (animations et défilement doux).
+
+## Trois facettes de même rang
+
+Suites, spa et séminaires sont les trois activités du domaine, à égalité :
+même rang dans la navigation, trois boutons identiques dans le hero, un
+triptyque de trois panneaux égaux, puis un chapitre chacun bâti sur un seul
+gabarit (`components/Chapter.tsx`, données `chapters` dans `lib/content.ts`) :
+même structure, trois chiffres clés, une liste, deux actions. Seule la couleur
+de fond les distingue (blanc, aplat de marque, sable). La clôture et la barre
+mobile proposent une action par facette.
+
+## Mouvement
+
+Titres révélés mot à mot, photos dévoilées en rideau, profondeur dans les
+cadres au défilement, hero qui s'efface en remontant, chiffres qui défilent,
+header qui s'efface à la descente, bandeau défilant. Uniquement `transform`,
+`opacity` et `clip-path` ; les effets liés au défilement sont en CSS
+(`animation-timeline`), sans JavaScript ni librairie — un navigateur qui ne
+les gère pas affiche la page immobile. Pas de préchargeur (il retarderait la
+photo d'accueil) ni de curseur personnalisé.
 - Anneau de focus visible, adapté aux fonds photo (`on-dark`).
 
 ## Performance
@@ -90,7 +110,8 @@ Ce script tourne aussi automatiquement avant `npm run build`.
   miniatures floutées, photos manquantes)
 - `components/Media.tsx` — primitive image : chargement progressif, cadre de
   remplacement, zoom au survol
-- `components/` — sections de la homepage + header/footer
+- `components/` — sections de la homepage + header/footer ; `Chapter.tsx`
+  est le gabarit commun des trois facettes
 - `public/images/` — photos du site
 - `scripts/media.mjs` — réindexation des photos
 
@@ -117,6 +138,11 @@ faire un « changement d'adresse » depuis `chambredhotesaintemilion.fr`.
   seuls les noms sont connus.
 - Hébergeur pour les mentions légales (`lib/content.ts`, `legal.host`).
 - Adresse e-mail `contact@chateaulatoursegur.com` toujours relevée.
+- Surface des suites : l'ancien site annonçait « de 28 à 60 m² », mais la
+  Suite Métal est décrite à 80 m². La page d'accueil affiche désormais la
+  plage calculée depuis les fiches (28–80 m²).
+- Tarifs de nuit : l'ancienne page événements annonçait « 180 à 390 € », les
+  fiches suites donnent 195 à 350 €. La page d'accueil suit les fiches.
 
 ## Notes de reprise
 

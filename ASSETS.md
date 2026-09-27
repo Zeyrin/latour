@@ -21,13 +21,13 @@ quoi que ce soit.
 | Fichier | Où | Cadre à l'écran | Définition minimale conseillée |
 | --- | --- | --- | --- |
 | `hero-chateau.jpg` | Bandeau d'accueil | Plein écran, recadré | **2800 × 1900** (3:2 ou 4:3) |
-| `suite-feu.jpg` | Accueil (onglet Suites), liste et fiche Suite Feu | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
-| `suite-eau.jpg` | Idem, Suite Eau | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
-| `cottage-bois.jpg` | Idem, Cottage Bois | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
+| `suite-feu.jpg` | Accueil (triptyque, panneau Suites), liste et fiche Suite Feu | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
+| `suite-eau.jpg` | Accueil (chapitre Suites), liste et fiche Suite Eau | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
+| `cottage-bois.jpg` | Liste et fiche Cottage Bois | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
 | `suite-metal.jpg` | Liste et fiche Suite Métal | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
 | `suite-terre.jpg` | Liste et fiche Suite Terre | Portrait 4:5 mobile, 4:3 desktop | **1600 × 2000** |
-| `spa-terrehappy.jpg` | Accueil (onglet Spa) et tête de la page Spa | 4:3 ; 21:9 recadré en tête de page | **2400 × 1800** |
-| `seminaire-salle-alienor.jpg` | Accueil (section Séminaires) et tête de la page Événements | 4:3 ; 21:9 recadré en tête de page | **2400 × 1800** |
+| `spa-terrehappy.jpg` | Accueil (triptyque et chapitre Spa) et tête de la page Spa | 4:3 ; 21:9 recadré en tête de page | **2400 × 1800** |
+| `seminaire-salle-alienor.jpg` | Accueil (triptyque et chapitre Séminaires) et tête de la page Événements | 4:3 ; 21:9 recadré en tête de page | **2400 × 1800** |
 | `galerie-parc.jpg` | Galerie, grande vignette, et tête de la page Domaine | Carré 1:1 ; 21:9 recadré en tête de page | **2400 × 1800** |
 | `galerie-piscine.jpg` | Galerie | Carré 1:1 | **1400 × 1400** |
 | `galerie-petit-dejeuner.jpg` | Galerie | Carré 1:1 | **1400 × 1400** |
