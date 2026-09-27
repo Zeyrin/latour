@@ -3,99 +3,114 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import Media from "@/components/Media";
 import SplitText from "@/components/SplitText";
-import { chapters, hero } from "@/lib/content";
+import { hero } from "@/lib/content";
 
 /** Décalage d'une apparition au chargement, en millisecondes */
 const at = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
+/**
+ * Bandeau d'accueil : une phrase, une invitation, et les trois univers juste
+ * en dessous (Univers.tsx). Aucun des trois n'est mis en avant ici — le seul
+ * lien mène à la section qui les présente côte à côte.
+ */
 export default function Hero() {
   return (
     <section
       aria-labelledby="hero-titre"
-      className="relative flex min-h-[88svh] items-center justify-center overflow-hidden bg-brand md:min-h-svh"
+      className="relative flex min-h-svh items-center justify-center overflow-hidden bg-brand"
     >
       {/* Deux couches : la première descend au défilement (profondeur), la
           photo à l'intérieur se désagrandit lentement à l'arrivée. */}
       <div className="hero-parallax absolute inset-0">
-        <Media
-          asset={hero.media}
-          sizes="100vw"
-          priority
-          quality={72}
-          className="ken-burns"
-        />
+        <div className="left-half">
+          <Media asset={hero.media} sizes="200vw" priority quality={75} className="ken-burns" />
+        </div>
       </div>
 
-      {/* Dégradé plutôt qu'un voile uniforme : la photo reste lisible en bas */}
-      <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/30 to-black/60" />
+      {/* Voile appuyé en haut (navigation) et en bas (repères) */}
+      <div className="absolute inset-0 bg-linear-to-b from-black/55 via-black/25 to-black/60" />
 
-      <div className="hero-fade on-dark container-latour relative py-20 text-center text-white md:py-24">
-        {/* Le classement est l'argument de confiance le plus fort du domaine :
-            il se voit à l'arrivée, pas seulement dans le pied de page. Le
-            logo est noir et rouge sur fond transparent — illisible sur la
-            photo — d'où le passage en blanc, comme pour le logo du header. */}
-        <Image
-          src="/images/logo-monument-historique.webp"
-          alt="Monument historique de France"
-          width={512}
-          height={512}
-          sizes="96px"
-          priority
-          style={at(100)}
-          className="rise-now mx-auto h-20 w-auto brightness-0 invert md:h-24"
-        />
-
-        <p style={at(250)} className="rise-now eyebrow mt-4 text-white/75">
-          {hero.place}
+      <div className="hero-fade on-dark container-latour relative pb-36 pt-32 text-center text-white md:pb-40">
+        <p
+          style={at(150)}
+          className="rise-now eyebrow flex items-center justify-center gap-4 text-white/80"
+        >
+          <span aria-hidden className="hidden h-px w-8 bg-white/50 sm:block" />
+          {hero.eyebrow}
+          <span aria-hidden className="hidden h-px w-8 bg-white/50 sm:block" />
         </p>
 
-        <h1
-          id="hero-titre"
-          className="split-now title-hero mx-auto mt-4 max-w-4xl text-white drop-shadow-sm"
-        >
-          <SplitText text={hero.title} delay={350} />
+        <h1 id="hero-titre" className="split-now title-hero mx-auto mt-7 max-w-5xl text-white">
+          <SplitText text={hero.title} delay={300} />
         </h1>
 
-        {/* Le titre est une promesse, pas une description : cette ligne dit ce
-            que l'on réserve réellement. */}
-        <p style={at(900)} className="rise-now mx-auto mt-5 max-w-xl text-white/90 md:text-lg">
-          {hero.subtitle}
-        </p>
+        <div style={at(1000)} className="rise-now mx-auto mt-8 max-w-xl text-white/85 md:text-lg">
+          {hero.subtitle.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
 
-        {/* Trois portes de même rang, une par facette : aucune n'est l'action
-            « principale ». Elles mènent au chapitre correspondant. */}
-        <nav
-          aria-label="Les trois facettes du domaine"
-          style={at(1100)}
-          className="rise-now mt-9 md:mt-10"
+        <Link
+          href={hero.cta.href}
+          style={at(1250)}
+          className="rise-now group mt-10 inline-flex min-h-12 items-center gap-5 border-b border-white/40 text-white"
         >
-          <ul className="mx-auto grid max-w-xs gap-3 sm:max-w-none sm:grid-cols-3 sm:justify-center md:inline-grid">
-            {chapters.map((chapter) => (
-              <li key={chapter.id}>
-                <Link
-                  href={`#${chapter.id}`}
-                  className="m3-button m3-outlined m3-state w-full backdrop-blur-[2px] sm:min-w-44"
-                >
-                  {chapter.verb}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+          <span className="eyebrow">{hero.cta.label}</span>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden
+            className="h-4 w-4 transition-transform duration-700 ease-(--ease-editorial) group-hover:translate-y-1"
+          >
+            <path d="M12 5v14m-6-6 6 6 6-6" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
       </div>
 
-      {/* Repère de défilement, à partir de sm seulement : sur un téléphone il
-          chevaucherait les boutons empilés, et le hero à 88svh laisse déjà
-          voir le haut de la section suivante. */}
-      <div className="on-dark absolute inset-x-0 bottom-6 hidden justify-center sm:flex">
-        <Link
-          href="#reperes"
-          aria-label="Aller au contenu de la page"
-          className="m3-state m3-corner-medium flex flex-col items-center gap-3 px-3 py-2 text-white/80"
-        >
-          <span className="eyebrow text-[0.625rem]">Découvrir</span>
-          <span aria-hidden className="scroll-cue" />
-        </Link>
+      {/* Repères en pied de bandeau : lieu, invitation à défiler, classement */}
+      <div
+        style={at(1500)}
+        className="rise-now on-dark absolute inset-x-0 bottom-0 pb-6 text-white md:pb-8"
+      >
+        <div className="flex items-end justify-between gap-4 px-5 md:px-12">
+          <p className="eyebrow flex items-center gap-3 text-[0.625rem] text-white/80">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden className="h-4 w-4 shrink-0">
+              <path
+                d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 1 1 13 0c0 4.8-6.5 11-6.5 11Z"
+                stroke="currentColor"
+                strokeWidth="1.1"
+              />
+              <circle cx="12" cy="10" r="2.2" stroke="currentColor" strokeWidth="1.1" />
+            </svg>
+            <span>{hero.place}</span>
+          </p>
+
+          <a
+            href="#univers"
+            aria-label="Faire défiler vers les trois univers"
+            className="absolute left-1/2 bottom-0 hidden -translate-x-1/2 flex-col items-center gap-3 pb-6 sm:flex md:pb-8"
+          >
+            <span className="eyebrow text-[0.625rem] text-white/80">{hero.cue}</span>
+            <span aria-hidden className="scroll-cue" />
+          </a>
+
+          <div className="flex items-center gap-3">
+            <Image
+              src="/images/logo-monument-historique.webp"
+              alt="Monument historique de France"
+              width={512}
+              height={512}
+              sizes="48px"
+              priority
+              className="h-10 w-auto brightness-0 invert md:h-12"
+            />
+            <p className="eyebrow hidden text-[0.625rem] leading-relaxed text-white/80 sm:block">
+              {hero.heritage[0]}
+              <br />
+              <span className="text-white/60">{hero.heritage[1]}</span>
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

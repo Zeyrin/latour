@@ -9,6 +9,12 @@
   --color-stone: #6c6c6b;
   --color-mist: #a4a4a4;
   --color-line: #cccccc;
+  /* Fond crème, filets chauds et touche dorée : l'identité reste celle du
+     domaine, réchauffée pour la refonte */
+  --color-cream: #f8f6f2;
+  --color-warm: #f1ece4;
+  --color-hairline: #d9d2c9;
+  --color-gold: #b89b72;
 
   --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
   --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
@@ -37,7 +43,7 @@
   }
 
   body {
-    background-color: #ffffff;
+    background-color: var(--color-cream);
     color: var(--color-ink);
     font-family: var(--font-serif);
     font-size: 1.0625rem;
@@ -53,8 +59,10 @@
   h4 {
     font-family: var(--font-serif);
     color: var(--color-brand);
-    font-weight: 600;
-    line-height: 1.15;
+    /* Titres fins et grands : l'élégance vient de la taille, pas de la graisse */
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
     text-wrap: balance;
   }
 
@@ -95,12 +103,16 @@
 
 @utility container-latour {
   width: 100%;
-  max-width: 1140px;
+  max-width: 1312px;
   margin-inline: auto;
   padding-inline: 1.25rem;
 
   @media (width >= 768px) {
-    padding-inline: 2rem;
+    padding-inline: 2.5rem;
+  }
+
+  @media (width >= 1280px) {
+    padding-inline: 4rem;
   }
 }
 
@@ -116,11 +128,27 @@
 
 /* Titres de section : progression fluide, sans palier brutal entre breakpoints */
 @utility title-section {
-  font-size: clamp(1.75rem, 1.15rem + 2.4vw, 2.75rem);
+  font-size: clamp(2.1rem, 1.4rem + 2.6vw, 3.4rem);
+}
+
+/* La photo d'accueil actuelle est un diptyque (château | piscine) : ce cadre
+   n'en montre que la moitié gauche, pour que la jonction ne se voie jamais.
+   À retirer quand la photo définitive sera livrée. */
+@utility left-half {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 200%;
 }
 
 @utility title-hero {
-  font-size: clamp(2.25rem, 1.1rem + 5vw, 4rem);
+  font-size: clamp(3rem, 1.2rem + 7vw, 7.25rem);
+  line-height: 1;
+}
+
+/* Seconde ligne d'un titre : italique, signature de la page */
+@utility title-italic {
+  font-style: italic;
 }
 
 /* Rythme vertical des sections, resserré sur petit écran */
@@ -186,8 +214,9 @@
     /* --- Formes --- */
     --md-sys-shape-corner-extra-small: 4px;
     --md-sys-shape-corner-small: 8px;
-    --md-sys-shape-corner-medium: 12px;
-    --md-sys-shape-corner-large: 16px;
+    /* Cadres photo à angle vif, comme un tirage */
+    --md-sys-shape-corner-medium: 0px;
+    --md-sys-shape-corner-large: 0px;
     --md-sys-shape-corner-full: 9999px;
 
     /* --- Élévation --- */
@@ -286,13 +315,16 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 2.5rem;
-  padding-inline: 1.5rem;
-  border-radius: var(--md-sys-shape-corner-full);
+  min-height: 3rem;
+  padding-inline: 1.75rem;
+  /* Rectangles nets et capitales espacées : la forme des boutons suit celle
+     des surtitres, plutôt que les pilules M3 par défaut */
+  border-radius: 0;
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.1px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   line-height: 1.25rem;
   text-align: center;
   white-space: nowrap;
@@ -304,7 +336,7 @@
   /* 40dp au pointeur fin, 48dp au doigt : la hauteur visée par M3 et le
      minimum tactile accessible ne sont pas la même valeur. */
   @media (pointer: coarse) {
-    min-height: 3rem;
+    min-height: 3.25rem;
   }
 }
 
@@ -643,63 +675,6 @@
     }
   }
 
-  /* --- Triptyque : trois portes de même largeur ----------------------------
-     Au survol ou au focus, le panneau visé s'élargit et les deux autres se
-     retirent d'autant : la somme ne change pas, les trois restent égaux au
-     repos. */
-  .triptych-door {
-    flex: 1 1 0%;
-    min-width: 0;
-    transition: flex-grow 1s var(--ease-editorial);
-  }
-
-  .triptych-door img {
-    transition:
-      transform 1.6s var(--ease-editorial),
-      filter 1s var(--ease-editorial);
-  }
-
-  .triptych-pitch {
-    display: grid;
-    grid-template-rows: 1fr;
-    transition:
-      grid-template-rows 0.8s var(--ease-editorial),
-      opacity 0.8s var(--ease-editorial);
-  }
-
-  @media (width >= 768px) and (hover: hover) {
-    .triptych:hover .triptych-door,
-    .triptych:focus-within .triptych-door {
-      flex-grow: 0.75;
-    }
-
-    .triptych .triptych-door:hover,
-    .triptych .triptych-door:has(:focus-visible) {
-      flex-grow: 1.5;
-    }
-
-    .triptych:hover .triptych-door:not(:hover) img,
-    .triptych:focus-within .triptych-door:not(:has(:focus-visible)) img {
-      filter: saturate(0.6) brightness(0.8);
-    }
-
-    .triptych-door:hover img,
-    .triptych-door:has(:focus-visible) img {
-      transform: scale(1.06);
-    }
-
-    .triptych-pitch {
-      grid-template-rows: 0fr;
-      opacity: 0;
-    }
-
-    .triptych-door:hover .triptych-pitch,
-    .triptych-door:has(:focus-visible) .triptych-pitch {
-      grid-template-rows: 1fr;
-      opacity: 1;
-    }
-  }
-
   /* --- Lignes de liste : trait qui se dessine au survol -------------------- */
   .row-link {
     background-image: linear-gradient(currentColor, currentColor);
@@ -712,28 +687,6 @@
   .group:hover .row-link,
   .group:focus-visible .row-link {
     background-size: 100% 1px;
-  }
-
-  /* --- Bandeau défilant --------------------------------------------------- */
-  .marquee {
-    overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  }
-
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    animation: marquee 60s linear infinite;
-  }
-
-  .marquee:hover .marquee-track {
-    animation-play-state: paused;
-  }
-
-  @keyframes marquee {
-    to {
-      transform: translateX(-50%);
-    }
   }
 
   /* --- Effets liés au défilement ------------------------------------------
@@ -795,9 +748,60 @@
       transition: none;
     }
 
-    .marquee-track,
     .scroll-cue::after {
       animation: none;
     }
   }
+}
+
+@layer components {
+  /* Flèche dans un cercle : se remplit de la couleur du texte au survol */
+  .arrow-circle {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 9999px;
+    transition:
+      background-color 0.6s var(--ease-editorial),
+      color 0.6s var(--ease-editorial),
+      border-color 0.6s var(--ease-editorial),
+      transform 0.6s var(--ease-editorial);
+  }
+
+  .arrow-link:hover .arrow-circle,
+  .arrow-link:focus-visible .arrow-circle {
+    background-color: currentColor;
+    border-color: currentColor;
+    transform: rotate(45deg);
+  }
+
+  .arrow-link:hover .arrow-circle svg,
+  .arrow-link:focus-visible .arrow-circle svg {
+    color: var(--color-cream);
+  }
+
+  .arrow-link.text-white:hover .arrow-circle svg,
+  .arrow-link.text-white:focus-visible .arrow-circle svg {
+    color: var(--color-brand);
+  }
+
+  /* Photo qui s'approche lentement au survol d'une carte */
+  .zoom-on-hover img {
+    transition: transform 1.6s var(--ease-editorial);
+  }
+
+  .group:hover .zoom-on-hover img,
+  .group:focus-visible .zoom-on-hover img {
+    transform: scale(1.05);
+  }
+}
+
+/* Le zoom d'arrivée se centre sur la moitié visible du diptyque */
+.left-half .ken-burns {
+  transform-origin: 25% 50%;
 }

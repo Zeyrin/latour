@@ -1,7 +1,8 @@
 import { Fragment, type CSSProperties } from "react";
 
 type Props = {
-  text: string;
+  /** Une ligne, ou deux : la seconde passe en italique, à la ligne */
+  text: string | readonly [string, string];
   /** Décalage de départ, en millisecondes */
   delay?: number;
 };
@@ -13,20 +14,30 @@ type Props = {
  * masqués.
  */
 export default function SplitText({ text, delay = 0 }: Props) {
-  const words = text.split(" ");
+  const lines = typeof text === "string" ? [text] : text;
+  let index = 0;
 
   return (
     <>
-      <span className="sr-only">{text}</span>
+      <span className="sr-only">{lines.join(" ")}</span>
       <span aria-hidden>
-        {words.map((word, i) => (
-          <Fragment key={`${word}-${i}`}>
-            <span className="split-word">
-              <span style={{ "--i": i, "--d": `${delay}ms` } as CSSProperties}>{word}</span>
+        {lines.map((line, l) => {
+          const words = line.split(" ");
+          return (
+            <span key={line} className={l === 1 ? "block italic" : "block"}>
+              {words.map((word, i) => (
+                <Fragment key={`${word}-${i}`}>
+                  <span className="split-word">
+                    <span style={{ "--i": index++, "--d": `${delay}ms` } as CSSProperties}>
+                      {word}
+                    </span>
+                  </span>
+                  {i < words.length - 1 ? " " : null}
+                </Fragment>
+              ))}
             </span>
-            {i < words.length - 1 ? " " : null}
-          </Fragment>
-        ))}
+          );
+        })}
       </span>
     </>
   );

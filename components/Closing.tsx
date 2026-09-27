@@ -1,67 +1,55 @@
 import Link from "next/link";
-import Media from "@/components/Media";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
-import { closing, hero, site } from "@/lib/content";
+import { chapters, closing, site } from "@/lib/content";
 
 /**
- * Dernière occasion d'agir avant le pied de page, sur la photo du château :
- * une action par facette, les trois au même niveau. Le téléphone et le bon
- * cadeau viennent en second, en boutons texte.
+ * Dernière occasion d'agir avant le pied de page : une porte par univers, les
+ * trois au même niveau, puis le téléphone et le bon cadeau.
  */
 export default function Closing() {
   return (
     <section
       aria-labelledby="closing-titre"
-      className="on-dark relative isolate overflow-hidden bg-brand text-center text-white"
+      className="on-dark relative overflow-hidden bg-brand text-center text-white"
     >
-      <div className="parallax -z-10">
-        <Media asset={hero.media} sizes="100vw" quality={65} />
-      </div>
-      <div className="absolute inset-0 -z-10 bg-black/55" />
-
-      <Reveal className="container-latour section-y">
-        <p className="eyebrow text-white/75">{closing.eyebrow}</p>
-        <h2 id="closing-titre" className="title-hero mx-auto mt-4 max-w-3xl italic text-white">
+      <Reveal className="container-latour section-y relative">
+        <p className="eyebrow text-white/70">{closing.eyebrow}</p>
+        <h2 id="closing-titre" className="title-hero mx-auto mt-6 max-w-4xl text-white">
           <SplitText text={closing.title} />
         </h2>
-        <p className="mx-auto mt-6 max-w-xl text-white/85">{closing.text}</p>
+        <div className="mx-auto mt-8 max-w-xl text-white/80 md:text-lg">
+          {closing.text.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
 
-        <ul className="mx-auto mt-10 grid max-w-xs gap-3 sm:max-w-3xl sm:grid-cols-3">
-          {closing.actions.map((action) => (
-            <li key={action.label}>
-              <Link href={action.href} className="m3-button m3-filled m3-state w-full">
-                {action.label}
+        <ul className="mx-auto mt-12 grid max-w-xs gap-3 sm:max-w-3xl sm:grid-cols-3 sm:gap-4">
+          {chapters.map((chapter) => (
+            <li key={chapter.id}>
+              <Link
+                href="/contact"
+                className="m3-button m3-outlined m3-state w-full justify-between gap-4"
+              >
+                {chapter.verb}
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden className="h-4 w-4">
+                  <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </Link>
             </li>
           ))}
         </ul>
 
-        <div className="mt-6 flex flex-col items-center justify-center gap-1 sm:flex-row sm:gap-4">
+        <p className="mt-10 text-3xl italic text-gold">{closing.signature}</p>
+
+        <div className="mt-4 flex flex-col items-center justify-center gap-1 sm:flex-row sm:gap-4">
           <a href={site.phoneHref} className="m3-button m3-text-button m3-state">
             {site.phone}
           </a>
-          <a
-            href={closing.gift.href}
-            target="_blank"
-            rel="noreferrer"
-            className="m3-button m3-text-button m3-state"
-          >
+          <a href={closing.gift.href} target="_blank" rel="noreferrer" className="m3-button m3-text-button m3-state">
             {closing.gift.label}
           </a>
-          <a
-            href={site.mapUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="m3-button m3-text-button m3-state"
-          >
-            Nous localiser
-          </a>
         </div>
-
-        <p className="mt-4 text-sm text-white/70">
-          {site.address.street}, {site.address.city}
-        </p>
       </Reveal>
     </section>
   );

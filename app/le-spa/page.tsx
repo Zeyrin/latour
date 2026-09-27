@@ -86,7 +86,7 @@ export default function SpaPage() {
                 </li>
               ))}
             </ul>
-            <dl className="mt-6 grid grid-cols-4 gap-px overflow-hidden rounded-lg border border-line bg-line">
+            <dl className="mt-6 grid grid-cols-4 gap-px overflow-hidden border border-line bg-line">
               {spaPage.massages.rates.map((r) => (
                 <div key={r.duration} className="bg-white p-3 text-center">
                   <dt className="eyebrow text-stone">{r.duration}</dt>

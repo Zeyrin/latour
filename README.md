@@ -41,26 +41,35 @@ navigation — en capitales espacées). Conteneur : 1140 px.
   automatique suspendu au survol et au focus.
 - `prefers-reduced-motion` respecté partout (animations et défilement doux).
 
-## Trois facettes de même rang
+## Direction artistique
+
+Reprise de la maquette validée (« Loin du bruit, près de l'essentiel ») :
+fond crème `#F8F6F2`, filets `#D9D2C9`, touche dorée `#B89B72` réservée aux
+signatures ; titres Newsreader fins et grands, seconde ligne en italique ;
+surtitres et boutons en capitales espacées, boutons rectangulaires, photos à
+angle vif ; liens d'action avec flèche dans un cercle.
+
+## Trois univers de même rang
 
 Suites, spa et séminaires sont les trois activités du domaine, à égalité :
-même rang dans la navigation, trois boutons identiques dans le hero, un
-triptyque de trois panneaux égaux, puis un chapitre chacun bâti sur un seul
-gabarit (`components/Chapter.tsx`, données `chapters` dans `lib/content.ts`) :
-même structure, trois chiffres clés, une liste, deux actions. Seule la couleur
-de fond les distingue (blanc, aplat de marque, sable). La clôture et la barre
-mobile proposent une action par facette.
+même rang dans la navigation, trois cartes identiques sous le hero
+(`Univers.tsx`), puis un chapitre chacun bâti sur un seul gabarit
+(`Chapter.tsx`, données `chapters` dans `lib/content.ts`) : même structure,
+deux paragraphes, trois repères, une action. Seule la couleur de fond les
+distingue. La clôture et la barre mobile proposent une porte par univers.
+
+Ordre de la page : hero · trois univers · le domaine · les trois chapitres ·
+week-ends & cures · respiration · témoignages · galerie · clôture.
 
 ## Mouvement
 
 Titres révélés mot à mot, photos dévoilées en rideau, profondeur dans les
-cadres au défilement, hero qui s'efface en remontant, chiffres qui défilent,
-header qui s'efface à la descente, bandeau défilant. Uniquement `transform`,
-`opacity` et `clip-path` ; les effets liés au défilement sont en CSS
-(`animation-timeline`), sans JavaScript ni librairie — un navigateur qui ne
-les gère pas affiche la page immobile. Pas de préchargeur (il retarderait la
-photo d'accueil) ni de curseur personnalisé.
-- Anneau de focus visible, adapté aux fonds photo (`on-dark`).
+cadres au défilement, hero qui s'efface en remontant, header qui s'efface à la
+descente, flèches qui pivotent au survol. Uniquement `transform`, `opacity` et
+`clip-path` ; les effets liés au défilement sont en CSS (`animation-timeline`),
+sans JavaScript ni librairie — un navigateur qui ne les gère pas affiche la
+page immobile. Pas de préchargeur (il retarderait la photo d'accueil) ni de
+curseur personnalisé.
 
 ## Performance
 
@@ -138,6 +147,11 @@ faire un « changement d'adresse » depuis `chambredhotesaintemilion.fr`.
   seuls les noms sont connus.
 - Hébergeur pour les mentions légales (`lib/content.ts`, `legal.host`).
 - Adresse e-mail `contact@chateaulatoursegur.com` toujours relevée.
+- Citation « Notre bonheur, c'est que vous vous sentiez ici un peu chez
+  vous. », signée Corinne Dray dans la section Domaine : proposition de ton,
+  pas une phrase qu'elle a dite. À valider ou remplacer (`domaine.quote`).
+- Textes éditoriaux de la page d'accueil (titres, accroches des univers) :
+  repris de la maquette, à relire avec Corinne.
 - Surface des suites : l'ancien site annonçait « de 28 à 60 m² », mais la
   Suite Métal est décrite à 80 m². La page d'accueil affiche désormais la
   plage calculée depuis les fiches (28–80 m²).
@@ -153,6 +167,10 @@ faire un « changement d'adresse » depuis `chambredhotesaintemilion.fr`.
   réservation se fait par téléphone / page contact (`site.bookingUrl`) tant
   qu'aucun moteur de réservation n'est choisi.
 - Le formulaire newsletter n'est pas encore branché sur un prestataire d'emailing.
+- La photo d'accueil actuelle est un diptyque château | piscine : le hero et
+  la bande « respiration » n'en montrent que la moitié gauche (utilitaire
+  `left-half`). À retirer quand la photo définitive sera livrée.
+- La galerie ne s'affiche qu'une fois ses quatre photos livrées.
 - **Photos en attente de livraison.** Les visuels actuellement en place
   proviennent de l'ancien site et sont de faible définition (suites en 408×276,
   bandeau d'accueil en 2500×884). La mise en page vise les définitions listées
