@@ -1,13 +1,14 @@
-import Business from "@/components/Business";
+import Chapter from "@/components/Chapter";
 import Closing from "@/components/Closing";
 import Domaine from "@/components/Domaine";
 import Gallery from "@/components/Gallery";
 import Hero from "@/components/Hero";
-import Highlights from "@/components/Highlights";
+import Pause from "@/components/Pause";
 import SeoBlock from "@/components/SeoBlock";
-import SuitesSpa from "@/components/SuitesSpa";
+import Stays from "@/components/Stays";
 import Testimonials from "@/components/Testimonials";
-import { site } from "@/lib/content";
+import Univers from "@/components/Univers";
+import { chapters, site } from "@/lib/content";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -37,14 +38,18 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero />
-      <Highlights />
+      {/* Suites, spa, séminaires : trois univers de même rang. Les cartes les
+          présentent côte à côte, le domaine rappelle leur toit commun, puis
+          chacun a son chapitre, bâti sur le même gabarit. */}
+      <Univers />
       <Domaine />
-      {/* Suites et spa ensemble (même promesse, deux onglets) ; les
-          séminaires dans leur propre section, autre public, autre parcours. */}
-      <SuitesSpa />
-      <Business />
-      <Gallery />
+      {chapters.map((chapter, index) => (
+        <Chapter key={chapter.id} chapter={chapter} index={index} />
+      ))}
+      <Stays />
+      <Pause />
       <Testimonials />
+      <Gallery />
       {/* La conversion passe avant le texte de référencement, qui ferme la
           page en note discrète. */}
       <Closing />

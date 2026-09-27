@@ -8,12 +8,23 @@ import { nav, site } from "@/lib/content";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Le header d'origine passe en fond opaque dès le premier défilement
+  // Le header d'origine passe en fond opaque dès le premier défilement. Il
+  // s'efface quand on descend (la photo reprend tout l'écran) et revient dès
+  // qu'on remonte, geste de qui cherche le menu.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      if (Math.abs(y - last) > 6) {
+        setHidden(y > last && y > 320);
+        last = y;
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -55,8 +66,10 @@ export default function Header() {
     <>
       {home ? null : <div aria-hidden className="h-19 md:h-22" />}
       <header
-        className={`fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
-          solid ? "bg-white/95 shadow-sm backdrop-blur-sm" : "bg-transparent"
+        className={`fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow,backdrop-filter,translate] duration-500 ease-(--ease-editorial) ${
+          hidden && !open ? "-translate-y-full focus-within:translate-y-0" : ""
+        } ${
+          solid ? "border-b border-hairline bg-cream/95 backdrop-blur-sm" : "border-b border-white/15 bg-transparent"
         } ${solid ? "" : "on-dark"}`}
       >
         <div className="container-latour flex items-center justify-between gap-4 py-3 xl:gap-8">
@@ -79,13 +92,11 @@ export default function Header() {
 
           {/* Les libellés sont longs : la barre complète n'apparaît qu'à partir de xl */}
           <nav
-            className="hidden items-center gap-6 xl:flex"
+            className="hidden items-center gap-1 xl:flex"
             aria-label="Navigation principale"
           >
             {nav.map((item) => {
-              const active =
-                pathname === item.href ||
-                (item.href !== "/" && pathname.startsWith(item.href));
+              const active = pathname.startsWith(item.href);
 
               return (
                 <div key={item.href} className="group relative">
@@ -126,14 +137,12 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-4">
-            <a
-              href={site.giftUrl}
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              href={site.bookingUrl}
               className="m3-button m3-filled m3-state hidden sm:inline-flex"
             >
-              Bon cadeau
-            </a>
+              Préparer ma venue
+            </Link>
 
             <button
               type="button"
@@ -169,7 +178,7 @@ export default function Header() {
           id="menu-mobile"
           aria-label="Navigation mobile"
           hidden={!open}
-          className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain border-t border-line bg-white xl:hidden"
+          className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain border-t border-hairline bg-cream xl:hidden"
         >
           <ul className="container-latour flex flex-col py-3">
             {nav.map((item) => (

@@ -36,7 +36,7 @@ export default function Testimonials() {
       onBlurCapture={() => setPaused(false)}
     >
       <div className="container-latour">
-        <h2 className="title-section text-center uppercase text-white">
+        <h2 className="title-section text-center text-white">
           {testimonials.title}
         </h2>
 

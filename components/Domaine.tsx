@@ -1,47 +1,87 @@
-import Image from "next/image";
-import Link from "next/link";
+import ArrowLink from "@/components/ArrowLink";
+import Media from "@/components/Media";
 import Reveal from "@/components/Reveal";
+import SplitText from "@/components/SplitText";
 import { domaine } from "@/lib/content";
 
 /**
- * Présentation du domaine. Réunit les blocs « Bienvenue » et « Au cœur des
- * traditions » du site d'origine : sur mobile, deux sections de prose
- * consécutives repoussaient les photos trop loin dans la page.
+ * Le domaine, toit commun des trois univers : deux photos qui se chevauchent,
+ * le mot de l'hôtesse, puis trois repères. Présenté après les univers — on
+ * sait d'abord ce que l'on peut vivre ici, puis où.
  */
 export default function Domaine() {
+  const [main, detail] = domaine.media;
+
   return (
-    <section className="bg-sand section-y">
-      <div className="container-latour grid items-center gap-8 md:grid-cols-[auto_1fr] md:gap-14">
-        <Reveal className="flex justify-center">
-          <Image
-            src={domaine.icon}
-            alt=""
-            width={180}
-            height={180}
-            sizes="(min-width: 768px) 176px, 88px"
-            className="h-22 w-auto md:h-44"
-          />
-        </Reveal>
+    <section aria-labelledby="domaine-titre" className="relative bg-sand section-y">
+      {/* Mention verticale en marge, sur grand écran seulement */}
+      <p
+        aria-hidden
+        className="eyebrow absolute left-6 top-1/3 hidden origin-left -rotate-90 text-[0.5625rem] text-mist xl:block"
+      >
+        {domaine.side}
+      </p>
 
-        <Reveal delay={0.08} className="text-center md:text-left">
-          <p className="eyebrow text-stone">{domaine.eyebrow}</p>
-          <h2 className="title-section mt-3">{domaine.title}</h2>
-          <p className="eyebrow mt-4 text-mist">{domaine.subtitle}</p>
-
-          <div className="mt-6 space-y-4 text-stone">
-            {domaine.paragraphs.map((paragraph) => (
-              <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-            ))}
+      <div className="container-latour grid gap-14 md:grid-cols-2 md:items-center md:gap-16">
+        <Reveal className="relative pb-16 pr-10 md:pb-20 md:pr-14">
+          <div className="reveal-mask relative aspect-4/5 overflow-hidden bg-warm">
+            <div className="reveal-mask-inner absolute inset-0">
+              <div className="parallax">
+                <Media asset={main} sizes="(min-width: 768px) 40vw, 90vw" />
+              </div>
+            </div>
           </div>
 
-          <Link
-            href={domaine.cta.href}
-            className="m3-button m3-outlined m3-state mt-8"
-          >
+          {/* Seconde photo en décalé, cadrée d'un liseré crème */}
+          <figure className="absolute bottom-0 right-0 w-2/5">
+            <div
+              className="reveal-mask relative aspect-3/4 overflow-hidden border-8 border-sand bg-warm"
+              style={{ transitionDelay: "300ms" }}
+            >
+              <div className="reveal-mask-inner absolute inset-0">
+                <Media asset={detail} sizes="(min-width: 768px) 20vw, 45vw" />
+              </div>
+            </div>
+            <figcaption className="mt-3 text-center text-sm italic text-stone">
+              {domaine.caption}
+            </figcaption>
+          </figure>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <p className="eyebrow text-stone">{domaine.eyebrow}</p>
+          <h2 id="domaine-titre" className="title-section mt-4">
+            <SplitText text={domaine.title} />
+          </h2>
+
+          <p className="mt-8 text-lg italic text-brand">{domaine.lead}</p>
+          <p className="mt-5 text-stone">{domaine.text}</p>
+
+          <blockquote className="mt-8 border-l border-hairline pl-6">
+            <p className="text-xl italic leading-snug text-brand md:text-2xl">« {domaine.quote} »</p>
+            <footer className="mt-5">
+              <p className="text-2xl italic text-gold">{domaine.signature}</p>
+              <p className="eyebrow mt-1 text-[0.5625rem] text-mist">{domaine.role}</p>
+            </footer>
+          </blockquote>
+
+          <ArrowLink href={domaine.cta.href} className="mt-6">
             {domaine.cta.label}
-          </Link>
+          </ArrowLink>
         </Reveal>
       </div>
+
+      {/* Trois repères, communs aux trois univers */}
+      <Reveal className="container-latour mt-16 md:mt-24">
+        <ul className="grid gap-6 border-t border-hairline pt-10 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-hairline">
+          {domaine.pillars.map(([first, second]) => (
+            <li key={first} className="text-center text-lg leading-snug text-stone sm:px-6">
+              {first}
+              <span className="block italic">{second}</span>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
     </section>
   );
 }

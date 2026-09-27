@@ -56,7 +56,7 @@ export default function RootLayout({
       <head>
         {/* Sans JavaScript, les sections animées au défilement restent visibles */}
         <noscript>
-          <style>{`[data-reveal]{opacity:1!important}`}</style>
+          <style>{`[data-reveal]{opacity:1!important}.split-word>span,.reveal-mask-inner{transform:none!important}.reveal-mask{clip-path:none!important}`}</style>
         </noscript>
       </head>
       <body>
